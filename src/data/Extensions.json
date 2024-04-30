@@ -204,14 +204,7 @@
     "logo": "/assets/integrations/ninjaone.png",
     "logoDark": "/assets/integrations/ninjaone_dark.png",
     "forceSyncButton": true,
-    "description": "Enable the NinjaOne integration to sync documentation and monitor device compliance.",
     "helpText": "This integration allows you to populate custom fields with Tenant information, monitor device compliance state, document other items and generate relationships inside NinjaOne.",
-    "links": [
-      {
-        "name": "NinjaOne Documentation",
-        "url": "https://www.ninjaone.com/integrations/cyberdrain/"
-      }
-    ],
     "SettingOptions": [
       {
         "type": "textField",
