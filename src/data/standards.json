@@ -733,6 +733,16 @@
     "recommendedBy": []
   },
   {
+    "name": "standards.PerUserMFA",
+    "cat": "Entra (AAD) Standards",
+    "tag": ["highimpact"],
+    "helpText": "Enables per user MFA for all users.",
+    "addedComponent": [],
+    "label": "Enables per user MFA for all users.",
+    "impact": "High Impact",
+    "impactColour": "danger"
+  },
+  {
     "name": "standards.OutBoundSpamAlert",
     "cat": "Exchange Standards",
     "tag": ["lowimpact", "CIS"],
@@ -1716,9 +1726,8 @@
         "label": "Internal Sender Admin Address"
       },
       {
-        "type": "switch",
+        "type": "boolean",
         "label": "Enable External Sender Admin Notifications",
-        "required": false,
         "name": "standards.MalwareFilterPolicy.EnableExternalSenderAdminNotifications"
       },
       {

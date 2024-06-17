@@ -145,6 +145,15 @@ const ComplianceList = () => {
           expandableRows: true,
           expandableRowsComponent: ExpandedComponent,
           expandOnRowClicked: true,
+          selectableRows: true,
+          actionsList: [
+            {
+              label: 'Delete Policy',
+              modal: true,
+              modalUrl: `api/RemovePolicy?TenantFilter=${tenant?.defaultDomainName}&ID=!id&URLName=deviceCompliancePolicies`,
+              modalMessage: 'Are you sure you want to delete these policies?',
+            },
+          ],
         },
       }}
     />
