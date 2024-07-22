@@ -71,6 +71,7 @@ const OffboardingWizard = () => {
       HideFromGAL: values.HideFromGAL,
       DisableSignIn: values.DisableSignIn,
       RemoveGroups: values.RemoveGroups,
+      removeCalendarInvites: values.removeCalendarInvites,
       RemoveLicenses: values.RemoveLicenses,
       ResetPass: values.ResetPass,
       RevokeSessions: values.RevokeSessions,
@@ -164,6 +165,7 @@ const OffboardingWizard = () => {
               <RFFCFormSwitch name="DisableSignIn" label="Disable Sign in" />
               <RFFCFormSwitch name="ResetPass" label="Reset Password" />
               <RFFCFormSwitch name="RemoveGroups" label="Remove from all groups" />
+              <RFFCFormSwitch name="removeCalendarInvites" label="Cancel all calendar invites" />
               <RFFCFormSwitch name="HideFromGAL" label="Hide from Global Address List" />
               <RFFCFormSwitch name="DeleteUser" label="Delete user" />
             </CCol>
@@ -379,6 +381,14 @@ const OffboardingWizard = () => {
                           />
                         </CListGroupItem>
                         <CListGroupItem className="d-flex justify-content-between align-items-center">
+                          Cancel all calendar invites
+                          <FontAwesomeIcon
+                            color="#f77f00"
+                            size="lg"
+                            icon={props.values.removeCalendarInvites ? faCheck : faTimes}
+                          />
+                        </CListGroupItem>
+                        <CListGroupItem className="d-flex justify-content-between align-items-center">
                           Hide from Global Address List
                           <FontAwesomeIcon
                             color="#f77f00"
@@ -424,6 +434,14 @@ const OffboardingWizard = () => {
                             color="#f77f00"
                             size="lg"
                             icon={props.values.forward ? faCheck : faTimes}
+                          />
+                        </CListGroupItem>
+                        <CListGroupItem className="d-flex justify-content-between align-items-center">
+                          Delete User
+                          <FontAwesomeIcon
+                            color="#f77f00"
+                            size="lg"
+                            icon={props.values.DeleteUser ? faCheck : faTimes}
                           />
                         </CListGroupItem>
                       </CListGroup>

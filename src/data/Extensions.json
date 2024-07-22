@@ -1,14 +1,11 @@
 [
   {
     "name": "CIPP-API",
-    "id": "cippapi",
     "type": "CIPP-API",
     "cat": "API",
     "logo": "/assets/integrations/cipp-api.png",
     "forceSyncButton": false,
-    "hideTestButton": true,
     "disableWhenhosted": true,
-    "description": "Enable the CIPP API to access CIPP data outside of CIPP using a RESTful API.",
     "helpText": "This integration allows you to enable CIPP-API access outside of CIPP. Requires Global Administrator permissions inside your tenant for activation of the API. The API credentials will only be shown once.",
     "SettingOptions": [
       {
@@ -25,70 +22,7 @@
     "mappingRequired": false
   },
   {
-    "name": "Sherweb",
-    "id": "Sherweb",
-    "type": "Sherweb",
-    "cat": "CSP",
-    "logo": "/assets/integrations/sherweb.png",
-    "logoDark": "/assets/integrations/sherweb_dark.png",
-    "description": "Enable the Sherweb integration to manage your CSP licensing from CIPP.",
-    "helpText": "This integration allows you to manage your CSP licensing from CIPP. Purchase new licenses while adding or editing users in CIPP. Not a Sherweb partner? Sign up for the Sherweb Cloud Services for MSPs program.",
-    "alertText": "This integration is in a closed beta. To register for interest please visit the registration page. Filling in information while not in the beta is possible, but will not enable the functionality.",
-    "mappingRequired": true,
-    "links": [
-      {
-        "name": "Register for beta",
-        "url": "https://go.cyberdrain.com/sherweb"
-      },
-      {
-        "name": "Sherweb Cloud Services for MSPs",
-        "url": "https://info.sherweb.com/sherweb-cloud-services-for-msps"
-      }
-    ],
-    "SettingOptions": [
-      {
-        "type": "switch",
-        "name": "Sherweb.Enabled",
-        "label": "Enable Integration"
-      },
-      {
-        "type": "textField",
-        "name": "Sherweb.clientId",
-        "label": "Client ID",
-        "placeholder": "Enter your Sherweb Client ID",
-        "required": true
-      },
-      {
-        "type": "textField",
-        "name": "Sherweb.SubscriptionKey",
-        "label": "Subscription Key",
-        "placeholder": "Enter your Sherweb Subscription Key",
-        "required": true
-      },
-      {
-        "type": "password",
-        "name": "Sherweb.APIKey",
-        "label": "Client Secret",
-        "placeholder": "Enter your Sherweb Client Secret",
-        "required": true
-      },
-      {
-        "type": "autoComplete",
-        "name": "Sherweb.AllowedCustomRoles",
-        "label": "Select custom roles that are allowed to purchase licenses",
-        "api": {
-          "url": "/api/ExecCustomRole",
-          "queryKey": "CustomRoles",
-          "labelField": "RowKey",
-          "valueField": "RowKey"
-        },
-        "multiple": true
-      }
-    ]
-  },
-  {
     "name": "Gradient",
-    "id": "Gradient",
     "type": "Gradient",
     "cat": "Billing & Invoicing",
     "logo": "/assets/integrations/gradient.png",
@@ -132,7 +66,6 @@
   },
   {
     "name": "Halo PSA Ticketing",
-    "id": "HaloPSA",
     "type": "HaloPSA",
     "cat": "Ticketing",
     "logo": "/assets/integrations/halo.png",
@@ -198,7 +131,6 @@
   },
   {
     "name": "NinjaOne",
-    "id": "NinjaOne",
     "type": "NinjaOne",
     "cat": "Documentation & Monitoring",
     "logo": "/assets/integrations/ninjaone.png",
@@ -210,8 +142,7 @@
         "type": "textField",
         "name": "NinjaOne.Instance",
         "label": "Please enter your NinjaOne Instance hostname",
-        "placeholder": "app.ninjarmm.com, eu.ninjarmm.com, oc.ninjarmm.com, ca.ninjarmm.com, us2.ninjarmm.com",
-        "required": true
+        "placeholder": "app.ninjarmm.com, eu.ninjarmm.com, oc.ninjarmm.com, ca.ninjarmm.com, us2.ninjarmm.com"
       },
       {
         "type": "textField",
@@ -228,12 +159,12 @@
         "required": true
       },
       {
-        "type": "switch",
+        "type": "checkbox",
         "name": "NinjaOne.LicenseDocumentsEnabled",
         "label": "Sync Licenses (Requires NinjaOne Documentation)"
       },
       {
-        "type": "switch",
+        "type": "checkbox",
         "name": "NinjaOne.UserDocumentsEnabled",
         "label": "Sync Users (Requires NinjaOne Documentation)"
       },
@@ -255,64 +186,39 @@
   },
   {
     "name": "Hudu",
-    "id": "Hudu",
     "type": "Hudu",
     "cat": "Documentation",
-    "logo": "/assets/integrations/hudu.png",
-    "logoDark": "/assets/integrations/hudu_dark.png",
     "forceSyncButton": true,
-    "description": "Enable the Hudu integration to sync documentation",
     "helpText": "This integration allows you to populate custom asset layouts with Tenant information, monitor device compliance state, document other items and generate relationships inside Hudu.",
-    "links": [
-      {
-        "name": "Hudu Documentation",
-        "url": "https://support.hudu.com/hc/en-us/articles/24970807130391-CIPP#h_01J3NTF188BX3P64RKX3H52P3W"
-      }
-    ],
     "SettingOptions": [
       {
-        "type": "textField",
+        "type": "input",
+        "fieldtype": "input",
         "name": "Hudu.BaseUrl",
         "label": "Please enter your Hudu URL",
-        "placeholder": "https://yourcompany.huducloud.com",
-        "required": true
+        "placeholder": "https://yourcompany.huducloud.com"
       },
       {
-        "type": "password",
+        "type": "input",
+        "fieldtype": "password",
         "name": "Hudu.APIKey",
         "label": "Hudu API Key",
-        "placeholder": "Enter your Hudu API Key",
-        "required": true
+        "placeholder": "Enter your Hudu API Key"
       },
       {
-        "type": "switch",
-        "name": "Hudu.Enabled",
-        "label": "Enable Integration"
-      },
-      {
-        "type": "switch",
+        "type": "checkbox",
         "name": "Hudu.CreateMissingUsers",
         "label": "Create missing users in Hudu"
       },
       {
-        "type": "switch",
+        "type": "checkbox",
         "name": "Hudu.CreateMissingDevices",
         "label": "Create missing devices in Hudu"
       },
       {
-        "type": "textField",
-        "name": "Hudu.ExcludeSerials",
-        "label": "Exclude device serials (comma separated)"
-      },
-      {
-        "type": "switch",
-        "name": "Hudu.ImportDomains",
-        "label": "Import domains from M365"
-      },
-      {
-        "type": "switch",
-        "name": "Hudu.MonitorDomains",
-        "label": "Monitor domains in Hudu"
+        "type": "checkbox",
+        "name": "Hudu.Enabled",
+        "label": "Enable Integration"
       }
     ],
     "mappingRequired": true,

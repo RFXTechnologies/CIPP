@@ -5,6 +5,11 @@
     "tag": ["lowimpact"],
     "helpText": "Defines the email address to receive general updates and information related to M365 subscriptions. Leave a contact field blank if you do not want to update the contact information.",
     "docsDescription": "",
+    "disabledFeatures": {
+      "report": false,
+      "warn": false,
+      "remediate": false
+    },
     "addedComponent": [
       {
         "type": "textField",
@@ -235,7 +240,7 @@
     "docsDescription": "Uses the CIPP functionality that deploys applications across an entire tenant base as a standard.",
     "addedComponent": [
       {
-        "type": "textField",
+        "type": "input",
         "name": "standards.AppDeploy.appids",
         "label": "Application IDs, comma separated"
       }
@@ -358,7 +363,7 @@
     "name": "standards.TAP",
     "cat": "Entra (AAD) Standards",
     "tag": ["lowimpact"],
-    "helpText": "Enables TAP and sets the default TAP lifetime to 1 hour. This configuration also allows you to select if a TAP is single use or multi-logon.",
+    "helpText": "Enables TAP and sets the default TAP lifetime to 1 hour. This configuration also allows you to select is a TAP is single use or multi-logon.",
     "docsDescription": "Enables Temporary Password generation for the tenant.",
     "addedComponent": [
       {
@@ -551,10 +556,9 @@
     "helpText": "This standard disables all self service licenses and enables all exclusions",
     "addedComponent": [
       {
-        "type": "textField",
+        "type": "input",
         "name": "standards.DisableSelfServiceLicenses.Exclusions",
-        "label": "License Ids to exclude from this standard",
-        "required": false
+        "label": "License Ids to exclude from this standard"
       }
     ],
     "label": "Disable Self Service Licensing",
@@ -605,43 +609,6 @@
     "impact": "Medium Impact",
     "impactColour": "warning",
     "powershellEquivalent": "Update-MgPolicyAuthorizationPolicy",
-    "recommendedBy": []
-  },
-  {
-    "name": "standards.GuestInvite",
-    "cat": "Entra (AAD) Standards",
-    "tag": ["mediumimpact"],
-    "helpText": "This setting controls who can invite guests to your directory to collaborate on resources secured by your company, such as SharePoint sites or Azure resources.",
-    "addedComponent": [
-      {
-        "type": "autoComplete",
-        "multiple": false,
-        "label": "Who can send invites?",
-        "name": "standards.GuestInvite.allowInvitesFrom",
-        "options": [
-          {
-            "label": "Everyone",
-            "value": "everyone"
-          },
-          {
-            "label": "Admins, Guest inviters and All Members",
-            "value": "adminsGuestInvitersAndAllMembers"
-          },
-          {
-            "label": "Admins and Guest inviters",
-            "value": "adminsAndGuestInviters"
-          },
-          {
-            "label": "None",
-            "value": "none"
-          }
-        ]
-      }
-    ],
-    "label": "Guest Invite setting",
-    "impact": "Medium Impact",
-    "impactColour": "warning",
-    "powershellEquivalent": "",
     "recommendedBy": []
   },
   {
@@ -731,16 +698,6 @@
     "impactColour": "danger",
     "powershellEquivalent": "Graph API",
     "recommendedBy": []
-  },
-  {
-    "name": "standards.PerUserMFA",
-    "cat": "Entra (AAD) Standards",
-    "tag": ["highimpact"],
-    "helpText": "Enables per user MFA for all users.",
-    "addedComponent": [],
-    "label": "Enables per user MFA for all users.",
-    "impact": "High Impact",
-    "impactColour": "danger"
   },
   {
     "name": "standards.OutBoundSpamAlert",
@@ -882,42 +839,6 @@
     "recommendedBy": []
   },
   {
-    "name": "standards.DisableTNEF",
-    "cat": "Exchange Standards",
-    "tag": ["lowimpact"],
-    "helpText": "Disables Transport Neutral Encapsulation Format (TNEF)/winmail.dat for the tenant. TNEF can cause issues if the recipient is not using a client supporting TNEF.",
-    "addedComponent": [],
-    "label": "Disable TNEF/winmail.dat",
-    "impact": "Low Impact",
-    "impactColour": "info"
-  },
-  {
-    "name": "standards.FocusedInbox",
-    "cat": "Exchange Standards",
-    "tag": ["lowimpact"],
-    "helpText": "Sets the default Focused Inbox state for the tenant. This can be overridden by the user.",
-    "addedComponent": [
-      {
-        "type": "Select",
-        "label": "Select value",
-        "name": "standards.FocusedInbox.state",
-        "values": [
-          {
-            "label": "Enabled",
-            "value": "enabled"
-          },
-          {
-            "label": "Disabled",
-            "value": "disabled"
-          }
-        ]
-      }
-    ],
-    "label": "Set Focused Inbox state",
-    "impact": "Low Impact",
-    "impactColour": "info"
-  },
-  {
     "name": "standards.AutoExpandArchive",
     "cat": "Exchange Standards",
     "tag": ["lowimpact"],
@@ -981,7 +902,7 @@
     "label": "Enable or disable 'external' warning in Outlook",
     "impact": "Low Impact",
     "impactColour": "info",
-    "powershellEquivalent": "et-ExternalInOutlook \u2013Enabled $true or $false",
+    "powershellEquivalent": "et-ExternalInOutlook –Enabled $true or $false",
     "recommendedBy": ["CIS"]
   },
   {
@@ -1208,12 +1129,88 @@
   {
     "name": "standards.ShortenMeetings",
     "cat": "Exchange Standards",
+    "tag": ["mediumimpact"],
+    "helpText": "Sets the shorten meetings settings on a tenant level. This will shorten meetings by the selected amount of minutes. Valid values are 0 to 29. Short meetings are under 60 minutes, long meetings are over 60 minutes.",
+    "addedComponent": [
+      {
+        "type": "Select",
+        "label": "Select value",
+        "name": "standards.ShortenMeetings.ShortenEventScopeDefault",
+        "values": [
+          {
+            "label": "Disabled/None",
+            "value": "None"
+          },
+          {
+            "label": "End early",
+            "value": "EndEarly"
+          },
+          {
+            "label": "Start late",
+            "value": "StartLate"
+          }
+        ]
+      },
+      {
+        "type": "number",
+        "name": "standards.ShortenMeetings.DefaultMinutesToReduceShortEventsBy",
+        "label": "Minutes to reduce short calendar events by (Default is 5)",
+        "default": 5
+      },
+      {
+        "type": "number",
+        "name": "standards.ShortenMeetings.DefaultMinutesToReduceLongEventsBy",
+        "label": "Minutes to reduce long calendar events by (Default is 10)",
+        "default": 10
+      }
+    ],
+    "label": "Set shorten meetings state",
+    "impact": "Medium Impact",
+    "impactColour": "warning",
+    "powershellEquivalent": "Set-OrganizationConfig -ShortenEventScopeDefault -DefaultMinutesToReduceShortEventsBy -DefaultMinutesToReduceLongEventsBy",
+    "recommendedBy": []
+  },
+  {
+    "name": "standards.Bookings",
+    "cat": "Exchange Standards",
+    "tag": ["mediumimpact"],
+    "helpText": "Sets the state of Bookings on the tenant. Bookings is a scheduling tool that allows users to book appointments with others both internal and external.",
+    "docsDescription": "",
+    "addedComponent": [
+      {
+        "type": "Select",
+        "label": "Select value",
+        "name": "standards.Bookings.state",
+        "values": [
+          {
+            "label": "Enabled",
+            "value": "true"
+          },
+          {
+            "label": "Disabled",
+            "value": "false"
+          }
+        ]
+      }
+    ],
+    "label": "Set Bookings state",
+    "impact": "Medium Impact",
+    "impactColour": "warning",
+    "powershellEquivalent": "Set-OrganizationConfig -BookingsEnabled",
+    "recommendedBy": []
+  },
+  {
+    "name": "standards.DisableOutlookAddins",
+    "cat": "Exchange Standards",
     "tag": ["mediumimpact", "CIS", "exo_outlookaddins"],
     "helpText": "Disables the ability for users to install add-ins in Outlook. This is to prevent users from installing malicious add-ins.",
+    "docsDescription": "Disables users from being able to install add-ins in Outlook. Only admins are able to approve add-ins for the users. This is done to reduce the threat surface for data exfiltration.",
     "addedComponent": [],
     "label": "Disable users from installing add-ins in Outlook",
     "impact": "Medium Impact",
-    "impactColour": "warning"
+    "impactColour": "warning",
+    "powershellEquivalent": "Get-ManagementRoleAssignment | Remove-ManagementRoleAssignment",
+    "recommendedBy": ["CIS"]
   },
   {
     "name": "standards.SafeSendersDisable",
@@ -1282,9 +1279,8 @@
         ]
       },
       {
-        "type": "textField",
+        "type": "input",
         "name": "standards.UserSubmissions.email",
-        "required": false,
         "label": "Destination email address"
       }
     ],
@@ -1308,19 +1304,6 @@
     "recommendedBy": ["CIS"]
   },
   {
-    "name": "standards.EXODisableAutoForwarding",
-    "cat": "Exchange Standards",
-    "tag": ["highimpact", "CIS", "mdo_autoforwardingmode", "mdo_blockmailforward"],
-    "helpText": "Disables the ability for users to automatically forward e-mails to external recipients.",
-    "docsDescription": "Disables the ability for users to automatically forward e-mails to external recipients. This is to prevent data exfiltration. Please check if there are any legitimate use cases for this feature before implementing, like forwarding invoices and such.",
-    "addedComponent": [],
-    "label": "Disable automatic forwarding to external recipients",
-    "impact": "High Impact",
-    "impactColour": "danger",
-    "powershellEquivalent": "Set-HostedOutboundSpamFilterPolicy -AutoForwardingMode 'Off'",
-    "recommendedBy": ["CIS"]
-  },
-  {
     "name": "standards.QuarantineRequestAlert",
     "cat": "Defender Standards",
     "tag": ["lowimpact"],
@@ -1328,7 +1311,7 @@
     "docsDescription": "Sets a e-mail address to alert when a User requests to release a quarantined message. This is useful for monitoring and ensuring that the correct messages are released.",
     "addedComponent": [
       {
-        "type": "textField",
+        "type": "input",
         "name": "standards.QuarantineRequestAlert.NotifyUser",
         "label": "E-mail to receive the alert"
       }
@@ -1413,11 +1396,10 @@
         "default": true
       },
       {
-        "type": "autoComplete",
-        "multiple": false,
+        "type": "Select",
         "label": "If the message is detected as spoof by spoof intelligence",
         "name": "standards.AntiPhishPolicy.AuthenticationFailAction",
-        "options": [
+        "values": [
           {
             "label": "Quarantine the message",
             "value": "Quarantine"
@@ -1429,11 +1411,10 @@
         ]
       },
       {
-        "type": "autoComplete",
-        "multiple": false,
+        "type": "Select",
         "label": "Quarantine policy for Spoof",
         "name": "standards.AntiPhishPolicy.SpoofQuarantineTag",
-        "options": [
+        "values": [
           {
             "label": "AdminOnlyAccessPolicy",
             "value": "AdminOnlyAccessPolicy"
@@ -1449,8 +1430,7 @@
         ]
       },
       {
-        "type": "autoComplete",
-        "multiple": false,
+        "type": "Select",
         "label": "If a message is detected as user impersonation",
         "name": "standards.AntiPhishPolicy.TargetedUserProtectionAction",
         "options": [
@@ -1469,11 +1449,10 @@
         ]
       },
       {
-        "type": "autoComplete",
-        "multiple": false,
+        "type": "Select",
         "label": "Quarantine policy for user impersonation",
         "name": "standards.AntiPhishPolicy.TargetedUserQuarantineTag",
-        "options": [
+        "values": [
           {
             "label": "AdminOnlyAccessPolicy",
             "value": "AdminOnlyAccessPolicy"
@@ -1489,8 +1468,7 @@
         ]
       },
       {
-        "type": "autoComplete",
-        "multiple": false,
+        "type": "Select",
         "label": "If a message is detected as domain impersonation",
         "name": "standards.AntiPhishPolicy.TargetedDomainProtectionAction",
         "options": [
@@ -1509,11 +1487,10 @@
         ]
       },
       {
-        "type": "autoComplete",
-        "multiple": false,
+        "type": "Select",
         "label": "Quarantine policy for domain impersonation",
         "name": "standards.AntiPhishPolicy.TargetedDomainQuarantineTag",
-        "options": [
+        "values": [
           {
             "label": "DefaultFullAccessWithNotificationPolicy",
             "value": "DefaultFullAccessWithNotificationPolicy"
@@ -1529,8 +1506,7 @@
         ]
       },
       {
-        "type": "autoComplete",
-        "multiple": false,
+        "type": "Select",
         "label": "If Mailbox Intelligence detects an impersonated user",
         "name": "standards.AntiPhishPolicy.MailboxIntelligenceProtectionAction",
         "options": [
@@ -1750,33 +1726,25 @@
     "helpText": "This standard creates a Spam filter policy similar to the default strict policy.",
     "addedComponent": [
       {
-        "type": "number",
-        "label": "Bulk email threshold (Default 7)",
-        "name": "standards.SpamFilterPolicy.BulkThreshold",
-        "default": 7
-      },
-      {
-        "type": "autoComplete",
-        "multiple": false,
+        "type": "Select",
         "label": "Spam Action",
         "name": "standards.SpamFilterPolicy.SpamAction",
-        "options": [
-          {
-            "label": "Quarantine the message",
-            "value": "Quarantine"
-          },
+        "values": [
           {
             "label": "Move message to Junk Email folder",
             "value": "MoveToJmf"
+          },
+          {
+            "label": "Quarantine the message",
+            "value": "Quarantine"
           }
         ]
       },
       {
-        "type": "autoComplete",
-        "multiple": false,
+        "type": "Select",
         "label": "Spam Quarantine Tag",
         "name": "standards.SpamFilterPolicy.SpamQuarantineTag",
-        "options": [
+        "values": [
           {
             "label": "AdminOnlyAccessPolicy",
             "value": "AdminOnlyAccessPolicy"
@@ -1792,26 +1760,10 @@
         ]
       },
       {
-        "type": "autoComplete",
-        "label": "High Confidence Spam Action",
-        "name": "standards.SpamFilterPolicy.HighConfidenceSpamAction",
-        "options": [
-          {
-            "label": "Quarantine the message",
-            "value": "Quarantine"
-          },
-          {
-            "label": "Move message to Junk Email folder",
-            "value": "MoveToJmf"
-          }
-        ]
-      },
-      {
-        "type": "autoComplete",
-        "multiple": false,
+        "type": "Select",
         "label": "High Confidence Spam Quarantine Tag",
         "name": "standards.SpamFilterPolicy.HighConfidenceSpamQuarantineTag",
-        "options": [
+        "values": [
           {
             "label": "AdminOnlyAccessPolicy",
             "value": "AdminOnlyAccessPolicy"
@@ -1827,27 +1779,10 @@
         ]
       },
       {
-        "type": "autoComplete",
-        "multiple": false,
-        "label": "Bulk Spam Action",
-        "name": "standards.SpamFilterPolicy.BulkSpamAction",
-        "options": [
-          {
-            "label": "Quarantine the message",
-            "value": "Quarantine"
-          },
-          {
-            "label": "Move message to Junk Email folder",
-            "value": "MoveToJmf"
-          }
-        ]
-      },
-      {
-        "type": "autoComplete",
-        "multiple": false,
+        "type": "Select",
         "label": "Bulk Quarantine Tag",
         "name": "standards.SpamFilterPolicy.BulkQuarantineTag",
-        "options": [
+        "values": [
           {
             "label": "AdminOnlyAccessPolicy",
             "value": "AdminOnlyAccessPolicy"
@@ -1863,27 +1798,10 @@
         ]
       },
       {
-        "type": "autoComplete",
-        "multiple": false,
-        "label": "Phish Spam Action",
-        "name": "standards.SpamFilterPolicy.PhishSpamAction",
-        "options": [
-          {
-            "label": "Quarantine the message",
-            "value": "Quarantine"
-          },
-          {
-            "label": "Move message to Junk Email folder",
-            "value": "MoveToJmf"
-          }
-        ]
-      },
-      {
-        "type": "autoComplete",
-        "multiple": false,
+        "type": "Select",
         "label": "Phish Quarantine Tag",
         "name": "standards.SpamFilterPolicy.PhishQuarantineTag",
-        "options": [
+        "values": [
           {
             "label": "AdminOnlyAccessPolicy",
             "value": "AdminOnlyAccessPolicy"
@@ -1899,11 +1817,10 @@
         ]
       },
       {
-        "type": "autoComplete",
-        "multiple": false,
+        "type": "Select",
         "label": "High Confidence Phish Quarantine Tag",
         "name": "standards.SpamFilterPolicy.HighConfidencePhishQuarantineTag",
-        "options": [
+        "values": [
           {
             "label": "AdminOnlyAccessPolicy",
             "value": "AdminOnlyAccessPolicy"
@@ -1950,103 +1867,60 @@
     "helpText": "Sets the branding profile for the Intune Company Portal app. This is a tenant wide setting and overrules any settings set on the app level.",
     "addedComponent": [
       {
-        "type": "textField",
+        "type": "input",
         "name": "standards.intuneBrandingProfile.displayName",
-        "label": "Organization name",
-        "required": false
+        "label": "Organization name"
       },
       {
-        "type": "switch",
+        "type": "boolean",
         "name": "standards.intuneBrandingProfile.showLogo",
         "label": "Show logo"
       },
       {
-        "type": "switch",
+        "type": "boolean",
         "name": "standards.intuneBrandingProfile.showDisplayNameNextToLogo",
-        "label": "Show organization name next to logo",
-        "required": false
+        "label": "Show organization name next to logo"
       },
       {
-        "type": "textField",
+        "type": "input",
         "name": "standards.intuneBrandingProfile.contactITName",
-        "label": "Contact IT name",
-        "required": false
+        "label": "Contact IT name"
       },
       {
-        "type": "textField",
+        "type": "input",
         "name": "standards.intuneBrandingProfile.contactITPhoneNumber",
-        "label": "Contact IT phone number",
-        "required": false
+        "label": "Contact IT phone number"
       },
       {
-        "type": "textField",
+        "type": "input",
         "name": "standards.intuneBrandingProfile.contactITEmailAddress",
-        "label": "Contact IT email address",
-        "required": false
+        "label": "Contact IT email address"
       },
       {
-        "type": "textField",
+        "type": "input",
         "name": "standards.intuneBrandingProfile.contactITNotes",
-        "label": "Contact IT notes",
-        "required": false
+        "label": "Contact IT notes"
       },
       {
-        "type": "textField",
+        "type": "input",
         "name": "standards.intuneBrandingProfile.onlineSupportSiteName",
-        "label": "Online support site name",
-        "required": false
+        "label": "Online support site name"
       },
       {
-        "type": "textField",
+        "type": "input",
         "name": "standards.intuneBrandingProfile.onlineSupportSiteUrl",
-        "label": "Online support site URL",
-        "required": false
+        "label": "Online support site URL"
       },
       {
-        "type": "textField",
+        "type": "input",
         "name": "standards.intuneBrandingProfile.privacyUrl",
-        "label": "Privacy statement URL",
-        "required": false
+        "label": "Privacy statement URL"
       }
     ],
     "label": "Set Intune Company Portal branding profile",
     "impact": "Low Impact",
     "impactColour": "info",
     "powershellEquivalent": "Graph API",
-    "recommendedBy": []
-  },
-  {
-    "name": "standards.IntuneComplianceSettings",
-    "cat": "Intune Standards",
-    "tag": ["lowimpact"],
-    "helpText": "Sets the mark devices with no compliance policy assigned as compliance/non compliant and Compliance status validity period.",
-    "addedComponent": [
-      {
-        "type": "autoComplete",
-        "multiple": false,
-        "name": "standards.IntuneComplianceSettings.secureByDefault",
-        "label": "Mark devices with no compliance policy as",
-        "options": [
-          {
-            "label": "Compliant",
-            "value": "false"
-          },
-          {
-            "label": "Non-Compliant",
-            "value": "true"
-          }
-        ]
-      },
-      {
-        "type": "number",
-        "name": "standards.IntuneComplianceSettings.deviceComplianceCheckinThresholdDays",
-        "label": "Compliance status validity period (days)"
-      }
-    ],
-    "label": "Set Intune Compliance Settings",
-    "impact": "Low Impact",
-    "impactColour": "info",
-    "powershellEquivalent": "",
     "recommendedBy": []
   },
   {
@@ -2082,23 +1956,14 @@
     "name": "standards.DeletedUserRentention",
     "cat": "SharePoint Standards",
     "tag": ["lowimpact"],
-    "helpText": "Sets the retention period for deleted users OneDrive to the specified period of time. The default is 30 days.",
-    "docsDescription": "When a OneDrive user gets deleted, the personal SharePoint site is saved for selected amount of time that data can be retrieved from it.",
+    "helpText": "Sets the retention period for deleted users OneDrive to the specified number of years. The default is 1 year.",
+    "docsDescription": "When a OneDrive user gets deleted, the personal SharePoint site is saved for selected time in years and data can be retrieved from it.",
     "addedComponent": [
       {
-        "type": "autoComplete",
-        "multiple": false,
+        "type": "Select",
         "name": "standards.DeletedUserRentention.Days",
-        "label": "Retention time (Default 30 days)",
-        "options": [
-          {
-            "label": "30 days",
-            "value": "30"
-          },
-          {
-            "label": "90 days",
-            "value": "90"
-          },
+        "label": "Retention in years (Default 1)",
+        "values": [
           {
             "label": "1 year",
             "value": "365"
@@ -2184,9 +2049,196 @@
     "tag": ["lowimpact", "CIS"],
     "helpText": "Ensure Office 365 SharePoint infected files are disallowed for download",
     "addedComponent": [],
-    "label": "Only allow users to sync OneDrive from AAD joined devices",
+    "label": "Disallow downloading infected files from SharePoint",
+    "impact": "Low Impact",
+    "impactColour": "info",
+    "powershellEquivalent": "Set-SPOTenant -DisallowInfectedFileDownload $true",
+    "recommendedBy": ["CIS 3.0"]
+  },
+  {
+    "name": "standards.SPDisableLegacyWorkflows",
+    "cat": "SharePoint Standards",
+    "tag": ["lowimpact"],
+    "helpText": "Disables the creation of new SharePoint 2010 and 2013 classic workflows and removes the 'Return to classic SharePoint' link on modern SharePoint list and library pages.",
+    "addedComponent": [],
+    "label": "Disable Legacy Workflows",
+    "impact": "Low Impact",
+    "impactColour": "info",
+    "powershellEquivalent": "Set-SPOTenant -DisableWorkflow2010 $true -DisableWorkflow2013 $true -DisableBackToClassic $true",
+    "recommendedBy": []
+  },
+  {
+    "name": "standards.SPDirectSharing",
+    "cat": "SharePoint Standards",
+    "tag": ["mediumimpact", "CIS"],
+    "helpText": "Ensure default link sharing is set to Direct in SharePoint and OneDrive",
+    "addedComponent": [],
+    "label": "Default sharing to Direct users",
+    "impact": "Medium Impact",
+    "impactColour": "warning",
+    "powershellEquivalent": "Set-SPOTenant -DefaultSharingLinkType Direct",
+    "recommendedBy": ["CIS 3.0"]
+  },
+  {
+    "name": "standards.SPExternalUserExpiration",
+    "cat": "SharePoint Standards",
+    "tag": ["mediumimpact", "CIS"],
+    "helpText": "Ensure guest access to a site or OneDrive will expire automatically",
+    "addedComponent": [
+      {
+        "type": "number",
+        "name": "standards.SPExternalUserExpiration.Days",
+        "label": "Days until expiration (Default 60)"
+      }
+    ],
+    "label": "Set guest access to expire automatically",
+    "impact": "Medium Impact",
+    "impactColour": "warning",
+    "powershellEquivalent": "Set-SPOTenant -ExternalUserExpireInDays 30 -ExternalUserExpirationRequired $True",
+    "recommendedBy": ["CIS 3.0"]
+  },
+  {
+    "name": "standards.SPEmailAttestation",
+    "cat": "SharePoint Standards",
+    "tag": ["mediumimpact", "CIS"],
+    "helpText": "Ensure reauthentication with verification code is restricted",
+    "addedComponent": [
+      {
+        "type": "number",
+        "name": "standards.SPEmailAttestation.Days",
+        "label": "Require reauth every X Days (Default 15)"
+      }
+    ],
+    "label": "Require reauthentication with verification code",
+    "impact": "Medium Impact",
+    "impactColour": "warning",
+    "powershellEquivalent": "Set-SPOTenant -EmailAttestationRequired $true -EmailAttestationReAuthDays 15",
+    "recommendedBy": ["CIS 3.0"]
+  },
+  {
+    "name": "standards.DisableAddShortcutsToOneDrive",
+    "cat": "SharePoint Standards",
+    "tag": ["mediumimpact"],
+    "helpText": "When the feature is disabled the option Add shortcut to OneDrive will be removed. Any folders that have already been added will remain on the user's computer.",
+    "disabledFeatures": {
+      "report": true,
+      "warn": true,
+      "remediate": false
+    },
+    "addedComponent": [],
+    "label": "Disable Add Shortcuts To OneDrive",
+    "impact": "Medium Impact",
+    "impactColour": "warning",
+    "powershellEquivalent": "Graph API or Portal",
+    "recommendedBy": []
+  },
+  {
+    "name": "standards.DisableSharePointLegacyAuth",
+    "cat": "SharePoint Standards",
+    "tag": ["mediumimpact", "CIS"],
+    "helpText": "Disables the ability to authenticate with SharePoint using legacy authentication methods. Any applications that use legacy authentication will need to be updated to use modern authentication.",
+    "docsDescription": "Disables the ability for users and applications to access SharePoint via legacy basic authentication. This will likely not have any user impact, but will block systems/applications depending on basic auth or the SharePointOnlineCredentials class.",
+    "addedComponent": [],
+    "label": "Disable legacy basic authentication for SharePoint",
+    "impact": "Medium Impact",
+    "impactColour": "warning",
+    "powershellEquivalent": "Set-SPOTenant -LegacyAuthProtocolsEnabled $false",
+    "recommendedBy": ["CIS"]
+  },
+  {
+    "name": "standards.sharingCapability",
+    "cat": "SharePoint Standards",
+    "tag": ["highimpact", "CIS"],
+    "helpText": "Sets the default sharing level for OneDrive and Sharepoint. This is a tenant wide setting and overrules any settings set on the site level",
+    "addedComponent": [
+      {
+        "type": "autoComplete",
+        "multiple": false,
+        "name": "standards.DeletedUserRentention.Days",
+        "label": "Retention time (Default 30 days)",
+        "options": [
+          {
+            "label": "30 days",
+            "value": "30"
+          },
+          {
+            "label": "90 days",
+            "value": "90"
+          },
+          {
+            "label": "1 year",
+            "value": "365"
+          },
+          {
+            "label": "2 years",
+            "value": "730"
+          },
+          {
+            "label": "3 years",
+            "value": "1095"
+          },
+          {
+            "label": "4 years",
+            "value": "1460"
+          },
+          {
+            "label": "5 years",
+            "value": "1825"
+          },
+          {
+            "label": "6 years",
+            "value": "2190"
+          },
+          {
+            "label": "7 years",
+            "value": "2555"
+          },
+          {
+            "label": "8 years",
+            "value": "2920"
+          },
+          {
+            "label": "9 years",
+            "value": "3285"
+          },
+          {
+            "label": "10 years",
+            "value": "3650"
+          }
+        ]
+      }
+    ],
+    "label": "Set Sharing Level for OneDrive and Sharepoint",
     "impact": "High Impact",
-    "impactColour": "danger"
+    "impactColour": "danger",
+    "powershellEquivalent": "Update-MgBetaAdminSharepointSetting",
+    "recommendedBy": ["CIS"]
+  },
+  {
+    "name": "standards.DisableReshare",
+    "cat": "SharePoint Standards",
+    "tag": ["highimpact", "CIS"],
+    "helpText": "Disables the ability for external users to share files they don't own. Sharing links can only be made for People with existing access",
+    "docsDescription": "Disables the ability for external users to share files they don't own. Sharing links can only be made for People with existing access. This is a tenant wide setting and overrules any settings set on the site level",
+    "addedComponent": [],
+    "label": "Disable Resharing by External Users",
+    "impact": "High Impact",
+    "impactColour": "danger",
+    "powershellEquivalent": "Update-MgBetaAdminSharepointSetting",
+    "recommendedBy": ["CIS"]
+  },
+  {
+    "name": "standards.DisableUserSiteCreate",
+    "cat": "SharePoint Standards",
+    "tag": ["highimpact"],
+    "helpText": "Disables users from creating new SharePoint sites",
+    "docsDescription": "Disables standard users from creating SharePoint sites, also disables the ability to fully create teams",
+    "addedComponent": [],
+    "label": "Disable site creation by standard users",
+    "impact": "High Impact",
+    "impactColour": "danger",
+    "powershellEquivalent": "Update-MgAdminSharepointSetting",
+    "recommendedBy": []
   },
   {
     "name": "standards.TenantDefaultTimezone",
@@ -2195,13 +2247,76 @@
     "helpText": "Sets the default timezone for the tenant. This will be used for all new users and sites.",
     "addedComponent": [
       {
-        "type": "input",
+        "type": "TimezoneSelect",
         "name": "standards.TenantDefaultTimezone.Timezone",
         "label": "Timezone"
       }
     ],
-    "label": "Set Default Timezone for Tenant",
-    "impact": "Low Impact",
-    "impactColour": "info"
+    "label": "Exclude File Extensions from Syncing",
+    "impact": "High Impact",
+    "impactColour": "danger",
+    "powershellEquivalent": "Update-MgAdminSharepointSetting",
+    "recommendedBy": []
+  },
+  {
+    "name": "standards.SPAzureB2B",
+    "cat": "SharePoint Standards",
+    "tag": ["lowimpact", "CIS"],
+    "helpText": "Ensure SharePoint and OneDrive integration with Azure AD B2B is enabled",
+    "addedComponent": [],
+    "label": "Do not allow Mac devices to sync using OneDrive",
+    "impact": "High Impact",
+    "impactColour": "danger",
+    "powershellEquivalent": "Update-MgAdminSharepointSetting",
+    "recommendedBy": []
+  },
+  {
+    "name": "standards.SPDisallowInfectedFiles",
+    "cat": "SharePoint Standards",
+    "tag": ["highimpact"],
+    "helpText": "The unmanaged Sync standard has been temporarily disabled and does nothing.",
+    "addedComponent": [],
+    "label": "Only allow users to sync OneDrive from AAD joined devices",
+    "impact": "High Impact",
+    "impactColour": "danger",
+    "powershellEquivalent": "Update-MgAdminSharepointSetting",
+    "recommendedBy": []
+  },
+  {
+    "name": "standards.sharingDomainRestriction",
+    "cat": "SharePoint Standards",
+    "tag": ["highimpact", "CIS"],
+    "helpText": "Restricts sharing to only users with the specified domain. This is useful for organizations that only want to share with their own domain.",
+    "addedComponent": [
+      {
+        "type": "Select",
+        "name": "standards.sharingDomainRestriction.Mode",
+        "label": "Limit external sharing by domains",
+        "values": [
+          {
+            "label": "Off",
+            "value": "none"
+          },
+          {
+            "label": "Restirct sharing to specific domains",
+            "value": "allowList"
+          },
+          {
+            "label": "Block sharing to specific domains",
+            "value": "blockList"
+          }
+        ]
+      },
+      {
+        "type": "input",
+        "name": "standards.sharingDomainRestriction.Domains",
+        "label": "Domains to allow/block, comma separated"
+      }
+    ],
+    "label": "Restrict sharing to a specific domain",
+    "impact": "High Impact",
+    "impactColour": "danger",
+    "powershellEquivalent": "Update-MgAdminSharepointSetting",
+    "recommendedBy": []
   }
 ]
