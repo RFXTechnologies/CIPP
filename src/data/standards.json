@@ -363,7 +363,7 @@
     "name": "standards.TAP",
     "cat": "Entra (AAD) Standards",
     "tag": ["lowimpact"],
-    "helpText": "Enables TAP and sets the default TAP lifetime to 1 hour. This configuration also allows you to select is a TAP is single use or multi-logon.",
+    "helpText": "Enables TAP and sets the default TAP lifetime to 1 hour. This configuration also allows you to select if a TAP is single use or multi-logon.",
     "docsDescription": "Enables Temporary Password generation for the tenant.",
     "addedComponent": [
       {
