@@ -20,33 +20,20 @@ export default function cellTable(
     columnProp = column
   }
 
-  if (columnProp === undefined || columnProp === null) {
-    columnProp = []
-  } else {
-    var objectLength = 1
-    var lengthText = 'Item'
-    if (columnProp instanceof Array) {
-      objectLength = columnProp.length
-      if (objectLength > 1) {
-        lengthText = 'Items'
+  if (!Array.isArray(columnProp) && typeof columnProp === 'object') {
+    columnProp = Object.keys(columnProp).map((key) => {
+      return {
+        Key: key,
+        Value: columnProp[key],
       }
-    }
-
-    if (!Array.isArray(columnProp) && typeof columnProp === 'object') {
-      columnProp = Object.keys(columnProp).map((key) => {
+    })
+  } else {
+    if (Array.isArray(columnProp) && typeof columnProp[0] !== 'object') {
+      columnProp = columnProp.map((row) => {
         return {
-          Key: key,
-          Value: columnProp[key],
+          Value: row,
         }
       })
-    } else {
-      if (Array.isArray(columnProp) && typeof columnProp[0] !== 'object') {
-        columnProp = columnProp.map((row) => {
-          return {
-            Value: row,
-          }
-        })
-      }
     }
   }
 
@@ -102,7 +89,7 @@ export default function cellTable(
       size="sm"
       onClick={() => handleTable({ columnProp })}
     >
-      {objectLength} {lengthText}
+      {columnProp.length} Items
     </CButton>
   )
 }

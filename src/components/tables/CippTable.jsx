@@ -38,7 +38,6 @@ import { debounce } from 'lodash-es'
 import { useSearchParams } from 'react-router-dom'
 import CopyToClipboard from 'react-copy-to-clipboard'
 import { setDefaultColumns } from 'src/store/features/app'
-import { CippCallout } from '../layout'
 
 const FilterComponent = ({ filterText, onFilter, onClear, filterlist, onFilterPreset }) => (
   <>
@@ -63,7 +62,7 @@ const FilterComponent = ({ filterText, onFilter, onClear, filterlist, onFilterPr
           {filterlist &&
             filterlist.map((item, idx) => {
               return (
-                <CDropdownItem key={`filter-${idx}`} onClick={() => onFilterPreset(item.filter)}>
+                <CDropdownItem key={idx} onClick={() => onFilterPreset(item.filter)}>
                   {item.filterName}
                 </CDropdownItem>
               )
@@ -125,7 +124,6 @@ export default function CippTable({
   filterlist,
   showFilter = true,
   endpointName,
-  defaultSortAsc = true,
   tableProps: {
     keyField = 'id',
     theme = 'cyberdrain',
@@ -414,7 +412,6 @@ export default function CippTable({
     (modalMessage, modalUrl, modalType = 'GET', modalBody, modalInput, modalDropdown) => {
       if (modalType === 'GET') {
         ModalService.confirm({
-          getData: () => inputRef.current?.value,
           body: (
             <div style={{ overflow: 'visible' }}>
               <div>{modalMessage}</div>
@@ -467,18 +464,6 @@ export default function CippTable({
           title: 'Confirm',
           onConfirm: async () => {
             const resultsarr = []
-            const selectedValue = inputRef.current.value
-            let additionalFields = {}
-            if (inputRef.current.nodeName === 'SELECT') {
-              const selectedItem = dropDownInfo.data.find(
-                (item) => item[modalDropdown.valueField] === selectedValue,
-              )
-              if (selectedItem && modalDropdown.addedField) {
-                Object.keys(modalDropdown.addedField).forEach((key) => {
-                  additionalFields[key] = selectedItem[modalDropdown.addedField[key]]
-                })
-              }
-            }
             for (const row of selectedRows) {
               setLoopRunning(true)
               const urlParams = new URLSearchParams(modalUrl.split('?')[1])
@@ -505,13 +490,26 @@ export default function CippTable({
                 }
               }
               const NewModalUrl = `${modalUrl.split('?')[0]}?${urlParams.toString()}`
+              const selectedValue = inputRef.current.value
+              let additionalFields = {}
+              if (inputRef.current.nodeName === 'SELECT') {
+                const selectedItem = dropDownInfo.data.find(
+                  (item) => item[modalDropdown.valueField] === selectedValue,
+                )
+                if (selectedItem && modalDropdown.addedField) {
+                  Object.keys(modalDropdown.addedField).forEach((key) => {
+                    additionalFields[key] = selectedItem[modalDropdown.addedField[key]]
+                  })
+                }
+              }
+
               const results = await genericPostRequest({
                 path: NewModalUrl,
                 values: {
                   ...modalBody,
                   ...newModalBody,
                   ...additionalFields,
-                  ...{ input: selectedValue },
+                  ...{ input: inputRef.current.value },
                 },
               })
               resultsarr.push(results)
@@ -616,7 +614,7 @@ export default function CippTable({
             className="m-1"
             size="sm"
           >
-            <FontAwesomeIcon icon={faSync} spin={isFetching} />
+            <FontAwesomeIcon icon={faSync} />
           </CButton>
         </CTooltip>,
       ])
@@ -722,7 +720,7 @@ export default function CippTable({
                 {dataKeys() &&
                   dataKeys().map((item, idx) => {
                     return (
-                      <CDropdownItem key={`select-${idx}`} onClick={() => addColumn(item)}>
+                      <CDropdownItem key={idx} onClick={() => addColumn(item)}>
                         {updatedColumns.find(
                           (o) => o.exportSelector === item && o?.omit !== true,
                         ) && <FontAwesomeIcon icon={faCheck} />}{' '}
@@ -820,7 +818,7 @@ export default function CippTable({
             <CDropdownMenu>
               {actionsList.map((item, idx) => {
                 return (
-                  <CDropdownItem key={`actions-${idx}`} onClick={() => executeselectedAction(item)}>
+                  <CDropdownItem key={idx} onClick={() => executeselectedAction(item)}>
                     {item.label}
                   </CDropdownItem>
                 )
@@ -885,7 +883,6 @@ export default function CippTable({
     updatedColumns,
     addColumn,
     setGraphFilter,
-    isFetching,
   ])
   const tablePageSize = useSelector((state) => state.app.tablePageSize)
   const [codeCopied, setCodeCopied] = useState(false)
@@ -902,7 +899,7 @@ export default function CippTable({
         {(updatedColumns || !dynamicColumns) && (
           <>
             {(massResults.length >= 1 || loopRunning) && (
-              <CippCallout color="info" dismissible>
+              <CCallout color="info">
                 {massResults[0]?.data?.Metadata?.Heading && (
                   <CAccordion flush>
                     {massResults.map((message, idx) => {
@@ -951,8 +948,8 @@ export default function CippTable({
                     const results = message.data?.Results
                     const displayResults = Array.isArray(results) ? results.join(', ') : results
                     return (
-                      <React.Fragment key={`message-${idx}`}>
-                        <li>
+                      <>
+                        <li key={`message-${idx}`}>
                           {displayResults}
                           <CopyToClipboard text={displayResults} onCopy={() => onCodeCopied()}>
                             <CButton
@@ -969,7 +966,7 @@ export default function CippTable({
                             </CButton>
                           </CopyToClipboard>
                         </li>
-                      </React.Fragment>
+                      </>
                     )
                   })}
                 {loopRunning && (
@@ -977,7 +974,7 @@ export default function CippTable({
                     <CSpinner size="sm" />
                   </li>
                 )}
-              </CippCallout>
+              </CCallout>
             )}
             <DataTable
               customStyles={customStyles}
@@ -1002,19 +999,18 @@ export default function CippTable({
               expandableRowsComponent={expandableRowsComponent}
               highlightOnHover={highlightOnHover}
               expandOnRowClicked={expandOnRowClicked}
-              defaultSortAsc={defaultSortAsc}
+              defaultSortAsc
               defaultSortFieldId={1}
               sortFunction={customSort}
               paginationPerPage={tablePageSize}
               progressPending={isFetching}
               progressComponent={<CSpinner color="info" component="div" />}
               paginationRowsPerPageOptions={[25, 50, 100, 200, 500]}
-              keyField={keyField}
               {...rest}
             />
             {selectedRows.length >= 1 && <CCallout>Selected {selectedRows.length} items</CCallout>}
             <CippCodeOffCanvas
-              row={data ?? {}}
+              row={data}
               hideButton={true}
               state={codeOffcanvasVisible}
               hideFunction={() => setCodeOffcanvasVisible(false)}
@@ -1064,7 +1060,6 @@ export const CippTablePropTypes = {
   disableCSVExport: PropTypes.bool,
   error: PropTypes.object,
   filterlist: PropTypes.arrayOf(PropTypes.object),
-  defaultSortAsc: PropTypes.bool,
 }
 
 CippTable.propTypes = CippTablePropTypes

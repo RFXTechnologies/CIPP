@@ -38,11 +38,11 @@ import { faGlobe } from '@fortawesome/free-solid-svg-icons'
 import { cellGenericFormatter } from '../tables/CellGenericFormat'
 import ReactSelect from 'react-select'
 
-const CippOffcanvasCard = ({ action }) => {
+const CippOffcanvasCard = ({ action, key }) => {
   const [offcanvasVisible, setOffcanvasVisible] = useState(false)
   return (
     <>
-      <CCard className="border-top-dark border-top-3 mb-3">
+      <CCard key={key} className="border-top-dark border-top-3 mb-3">
         <CCardHeader className="d-flex justify-content-between align-items-center">
           <CCardTitle>Report Name: {action.label}</CCardTitle>
         </CCardHeader>
@@ -95,6 +95,7 @@ const CippOffcanvasCard = ({ action }) => {
 }
 CippOffcanvasCard.propTypes = {
   action: PropTypes.object,
+  key: PropTypes.object,
 }
 
 export default function CippActionsOffcanvas(props) {
@@ -155,28 +156,6 @@ export default function CippActionsOffcanvas(props) {
         ModalService.open({
           data: modalBody,
           componentType: 'codeblock',
-          title: 'Info',
-          size: 'lg',
-        })
-      } else if (modalType === 'table') {
-        const QueryColumns = []
-        const columns = Object.keys(modalBody[0]).map((key) => {
-          QueryColumns.push({
-            name: key,
-            selector: (row) => row[key],
-            sortable: true,
-            exportSelector: key,
-            cell: cellGenericFormatter(),
-          })
-        })
-
-        ModalService.open({
-          data: modalBody,
-          componentType: 'table',
-          componentProps: {
-            columns: QueryColumns,
-            keyField: 'SKU',
-          },
           title: 'Info',
           size: 'lg',
         })
@@ -418,7 +397,7 @@ export default function CippActionsOffcanvas(props) {
       {getResults.isError && (
         <CCallout color="danger">Could not connect to API: {getResults.error.message}</CCallout>
       )}
-      {!cardContent && props?.extendedInfo && props?.extendedInfo?.length > 0 && (
+      {!cardContent && (
         <CCard className="content-card">
           <CCardHeader className="d-flex justify-content-between align-items-center">
             <CCardTitle>

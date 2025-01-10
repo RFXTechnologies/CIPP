@@ -5,26 +5,35 @@
     "tag": ["lowimpact"],
     "helpText": "Defines the email address to receive general updates and information related to M365 subscriptions. Leave a contact field blank if you do not want to update the contact information.",
     "docsDescription": "",
+    "disabledFeatures": {
+      "report": false,
+      "warn": false,
+      "remediate": false
+    },
     "addedComponent": [
       {
-        "type": "input",
+        "type": "textField",
         "name": "standards.MailContacts.GeneralContact",
-        "label": "General Contact"
+        "label": "General Contact",
+        "required": false
       },
       {
-        "type": "input",
+        "type": "textField",
         "name": "standards.MailContacts.SecurityContact",
-        "label": "Security Contact"
+        "label": "Security Contact",
+        "required": false
       },
       {
-        "type": "input",
+        "type": "textField",
         "name": "standards.MailContacts.MarketingContact",
-        "label": "Marketing Contact"
+        "label": "Marketing Contact",
+        "required": false
       },
       {
-        "type": "input",
+        "type": "textField",
         "name": "standards.MailContacts.TechContact",
-        "label": "Technical Contact"
+        "label": "Technical Contact",
+        "required": false
       }
     ],
     "label": "Set contact e-mails",
@@ -69,25 +78,28 @@
     "helpText": "Sets the branding for the tenant. This includes the login page, and the Office 365 portal.",
     "addedComponent": [
       {
-        "type": "input",
+        "type": "textField",
         "name": "standards.Branding.signInPageText",
-        "label": "Sign-in page text"
+        "label": "Sign-in page text",
+        "required": false
       },
       {
-        "type": "input",
+        "type": "textField",
         "name": "standards.Branding.usernameHintText",
-        "label": "Username hint Text"
+        "label": "Username hint Text",
+        "required": false
       },
       {
-        "type": "boolean",
+        "type": "switch",
         "name": "standards.Branding.hideAccountResetCredentials",
         "label": "Hide self-service password reset"
       },
       {
-        "type": "Select",
+        "type": "autoComplete",
+        "multiple": false,
         "label": "Visual Template",
         "name": "standards.Branding.layoutTemplateType",
-        "values": [
+        "options": [
           {
             "label": "Full-screen background",
             "value": "default"
@@ -99,12 +111,12 @@
         ]
       },
       {
-        "type": "boolean",
+        "type": "switch",
         "name": "standards.Branding.isHeaderShown",
         "label": "Show header"
       },
       {
-        "type": "boolean",
+        "type": "switch",
         "name": "standards.Branding.isFooterShown",
         "label": "Show footer"
       }
@@ -186,10 +198,11 @@
     "helpText": "Enables and sets Idle session timeout for Microsoft 365 to 1 hour. This policy affects most M365 web apps",
     "addedComponent": [
       {
-        "type": "Select",
+        "type": "autoComplete",
+        "multiple": false,
         "label": "Select value",
         "name": "standards.ActivityBasedTimeout.timeout",
-        "values": [
+        "options": [
           {
             "label": "1 Hour",
             "value": "01:00:00"
@@ -285,10 +298,11 @@
     "docsDescription": "Sets the Authenticator Lite state to enabled. This allows users to use the Authenticator Lite built into the Outlook app instead of the full Authenticator app.",
     "addedComponent": [
       {
-        "type": "Select",
+        "type": "autoComplete",
+        "multiple": false,
         "label": "Select value",
         "name": "standards.PWcompanionAppAllowedState.state",
-        "values": [
+        "options": [
           {
             "label": "Enabled",
             "value": "enabled"
@@ -353,10 +367,11 @@
     "docsDescription": "Enables Temporary Password generation for the tenant.",
     "addedComponent": [
       {
-        "type": "Select",
+        "type": "autoComplete",
+        "multiple": false,
         "label": "Select TAP Lifetime",
         "name": "standards.TAP.config",
-        "values": [
+        "options": [
           {
             "label": "Only Once",
             "value": "true"
@@ -394,10 +409,11 @@
     "helpText": "Sets the state of the Cross-tenant access setting to trust external MFA. This allows guest users to use their home tenant MFA to access your tenant.",
     "addedComponent": [
       {
-        "type": "Select",
+        "type": "autoComplete",
+        "multiple": false,
         "label": "Select value",
         "name": "standards.ExternalMFATrusted.state",
-        "values": [
+        "options": [
           {
             "label": "Enabled",
             "value": "true"
@@ -455,10 +471,11 @@
     "docsDescription": "Sets the state of the registration campaign for the tenant. If enabled nudges users to set up the Microsoft Authenticator during sign-in.",
     "addedComponent": [
       {
-        "type": "Select",
+        "type": "autoComplete",
+        "multiple": false,
         "label": "Select value",
         "name": "standards.NudgeMFA.state",
-        "values": [
+        "options": [
           {
             "label": "Enabled",
             "value": "enabled"
@@ -570,9 +587,10 @@
     "docsDescription": "Requires users to get administrator consent before sharing data with applications. You can preapprove specific applications.",
     "addedComponent": [
       {
-        "type": "input",
+        "type": "textField",
         "name": "standards.OauthConsent.AllowedApps",
-        "label": "Allowed application IDs, comma separated"
+        "label": "Allowed application IDs, comma separated",
+        "required": false
       }
     ],
     "label": "Require admin consent for applications (Prevent OAuth phishing)",
@@ -689,7 +707,7 @@
     "docsDescription": "Sets the e-mail address to which outbound spam alerts are sent.",
     "addedComponent": [
       {
-        "type": "input",
+        "type": "textField",
         "name": "standards.OutBoundSpamAlert.OutboundSpamContact",
         "label": "Outbound spam contact"
       }
@@ -721,10 +739,11 @@
     "docsDescription": "Sets the global quarantine notification interval for the tenant. This is the time between the quarantine notification emails are sent out to users. Default is 24 hours.",
     "addedComponent": [
       {
-        "type": "Select",
+        "type": "autoComplete",
+        "multiple": false,
         "label": "Select value",
         "name": "standards.GlobalQuarantineNotifications.NotificationInterval",
-        "values": [
+        "options": [
           {
             "label": "4 hours",
             "value": "04:00:00"
@@ -767,10 +786,11 @@
     "docsDescription": "Sets the default Focused Inbox state for the tenant. This can be overridden by the user in their Outlook settings. For more information, see [Microsoft's documentation.](https://support.microsoft.com/en-us/office/focused-inbox-for-outlook-f445ad7f-02f4-4294-a82e-71d8964e3978)",
     "addedComponent": [
       {
-        "type": "Select",
+        "type": "autoComplete",
+        "multiple": false,
         "label": "Select value",
         "name": "standards.FocusedInbox.state",
-        "values": [
+        "options": [
           {
             "label": "Enabled",
             "value": "enabled"
@@ -796,10 +816,11 @@
     "docsDescription": "Sets the default state for Cloud Message Recall for the tenant. By default this is enabled. You can read more about the feature [here.](https://techcommunity.microsoft.com/t5/exchange-team-blog/cloud-based-message-recall-in-exchange-online/ba-p/3744714)",
     "addedComponent": [
       {
-        "type": "Select",
+        "type": "autoComplete",
+        "multiple": false,
         "label": "Select value",
         "name": "standards.CloudMessageRecall.state",
-        "values": [
+        "options": [
           {
             "label": "Enabled",
             "value": "true"
@@ -862,10 +883,11 @@
     "docsDescription": "Adds or removes indicators to e-mail messages received from external senders in Outlook. You can read more about this feature on [Microsoft's Exchange Team Blog.](https://techcommunity.microsoft.com/t5/exchange-team-blog/native-external-sender-callouts-on-email-in-outlook/ba-p/2250098)",
     "addedComponent": [
       {
-        "type": "Select",
+        "type": "autoComplete",
+        "multiple": false,
         "label": "Select value",
         "name": "standards.SpoofWarn.state",
-        "values": [
+        "options": [
           {
             "label": "Enabled",
             "value": "enabled"
@@ -910,10 +932,11 @@
     "helpText": "Sets the default state for automatically turning meetings into Teams meetings for the tenant. This can be overridden by the user in Outlook.",
     "addedComponent": [
       {
-        "type": "Select",
+        "type": "autoComplete",
+        "multiple": false,
         "label": "Select value",
         "name": "standards.TeamsMeetingsByDefault.state",
-        "values": [
+        "options": [
           {
             "label": "Enabled",
             "value": "true"
@@ -1019,10 +1042,11 @@
     },
     "addedComponent": [
       {
-        "type": "Select",
+        "type": "autoComplete",
+        "multiple": false,
         "label": "Select Sharing Level",
         "name": "standards.calDefault.permissionlevel",
-        "values": [
+        "options": [
           {
             "label": "Owner - The user can create, read, edit, and delete all items in the folder, and create subfolders. The user is both folder owner and folder contact.",
             "value": "Owner"
@@ -1239,10 +1263,11 @@
     "docsDescription": "Set the state of the built-in Report button in Outlook. This gives the users the ability to report emails as spam or phish.",
     "addedComponent": [
       {
-        "type": "Select",
+        "type": "autoComplete",
+        "multiple": false,
         "label": "Select value",
         "name": "standards.UserSubmissions.state",
-        "values": [
+        "options": [
           {
             "label": "Enabled",
             "value": "enable"
@@ -1279,19 +1304,6 @@
     "recommendedBy": ["CIS"]
   },
   {
-    "name": "standards.EXODisableAutoForwarding",
-    "cat": "Exchange Standards",
-    "tag": ["highimpact", "CIS", "mdo_autoforwardingmode", "mdo_blockmailforward"],
-    "helpText": "Disables the ability for users to automatically forward e-mails to external recipients.",
-    "docsDescription": "Disables the ability for users to automatically forward e-mails to external recipients. This is to prevent data exfiltration. Please check if there are any legitimate use cases for this feature before implementing, like forwarding invoices and such.",
-    "addedComponent": [],
-    "label": "Disable automatic forwarding to external recipients",
-    "impact": "High Impact",
-    "impactColour": "danger",
-    "powershellEquivalent": "Set-HostedOutboundSpamFilterPolicy -AutoForwardingMode 'Off'",
-    "recommendedBy": ["CIS"]
-  },
-  {
     "name": "standards.QuarantineRequestAlert",
     "cat": "Defender Standards",
     "tag": ["lowimpact"],
@@ -1317,17 +1329,17 @@
     "helpText": "This creates a safelink policy that automatically scans, tracks, and and enables safe links for Email, Office, and Teams for both external and internal senders",
     "addedComponent": [
       {
-        "type": "boolean",
+        "type": "switch",
         "label": "AllowClickThrough",
         "name": "standards.SafeLinksPolicy.AllowClickThrough"
       },
       {
-        "type": "boolean",
+        "type": "switch",
         "label": "DisableUrlRewrite",
         "name": "standards.SafeLinksPolicy.DisableUrlRewrite"
       },
       {
-        "type": "boolean",
+        "type": "switch",
         "label": "EnableOrganizationBranding",
         "name": "standards.SafeLinksPolicy.EnableOrganizationBranding"
       }
@@ -1349,8 +1361,7 @@
       "mdo_highconfidencephishaction",
       "mdo_phisspamacation",
       "mdo_spam_notifications_only_for_admins",
-      "mdo_antiphishingpolicies",
-      "mdo_phishthresholdlevel"
+      "mdo_antiphishingpolicies"
     ],
     "helpText": "This creates a Anti-Phishing policy that automatically enables Mailbox Intelligence and spoofing, optional switches for Mailtips.",
     "addedComponent": [
@@ -1361,25 +1372,25 @@
         "default": 1
       },
       {
-        "type": "boolean",
+        "type": "switch",
         "label": "Show first contact safety tip",
         "name": "standards.AntiPhishPolicy.EnableFirstContactSafetyTips",
         "default": true
       },
       {
-        "type": "boolean",
+        "type": "switch",
         "label": "Show user impersonation safety tip",
         "name": "standards.AntiPhishPolicy.EnableSimilarUsersSafetyTips",
         "default": true
       },
       {
-        "type": "boolean",
+        "type": "switch",
         "label": "Show domain impersonation safety tip",
         "name": "standards.AntiPhishPolicy.EnableSimilarDomainsSafetyTips",
         "default": true
       },
       {
-        "type": "boolean",
+        "type": "switch",
         "label": "Show user impersonation unusual characters safety tip",
         "name": "standards.AntiPhishPolicy.EnableUnusualCharactersSafetyTips",
         "default": true
@@ -1422,7 +1433,7 @@
         "type": "Select",
         "label": "If a message is detected as user impersonation",
         "name": "standards.AntiPhishPolicy.TargetedUserProtectionAction",
-        "values": [
+        "options": [
           {
             "label": "Move to Junk Folder",
             "value": "MoveToJmf"
@@ -1460,7 +1471,7 @@
         "type": "Select",
         "label": "If a message is detected as domain impersonation",
         "name": "standards.AntiPhishPolicy.TargetedDomainProtectionAction",
-        "values": [
+        "options": [
           {
             "label": "Move to Junk Folder",
             "value": "MoveToJmf"
@@ -1498,7 +1509,7 @@
         "type": "Select",
         "label": "If Mailbox Intelligence detects an impersonated user",
         "name": "standards.AntiPhishPolicy.MailboxIntelligenceProtectionAction",
-        "values": [
+        "options": [
           {
             "label": "Move to Junk Folder",
             "value": "MoveToJmf"
@@ -1514,10 +1525,11 @@
         ]
       },
       {
-        "type": "Select",
+        "type": "autoComplete",
+        "multiple": false,
         "label": "Apply quarantine policy",
         "name": "standards.AntiPhishPolicy.MailboxIntelligenceQuarantineTag",
-        "values": [
+        "options": [
           {
             "label": "AdminOnlyAccessPolicy",
             "value": "AdminOnlyAccessPolicy"
@@ -1552,10 +1564,11 @@
     "helpText": "This creates a Safe Attachment policy",
     "addedComponent": [
       {
-        "type": "Select",
+        "type": "autoComplete",
+        "multiple": false,
         "label": "Action",
         "name": "standards.SafeAttachmentPolicy.Action",
-        "values": [
+        "options": [
           {
             "label": "Allow",
             "value": "Allow"
@@ -1571,10 +1584,11 @@
         ]
       },
       {
-        "type": "Select",
+        "type": "autoComplete",
+        "multiple": false,
         "label": "QuarantineTag",
         "name": "standards.SafeAttachmentPolicy.QuarantineTag",
-        "values": [
+        "options": [
           {
             "label": "AdminOnlyAccessPolicy",
             "value": "AdminOnlyAccessPolicy"
@@ -1590,14 +1604,15 @@
         ]
       },
       {
-        "type": "boolean",
+        "type": "switch",
         "label": "Redirect",
         "name": "standards.SafeAttachmentPolicy.Redirect"
       },
       {
-        "type": "input",
+        "type": "textField",
         "name": "standards.SafeAttachmentPolicy.RedirectAddress",
-        "label": "Redirect Address"
+        "label": "Redirect Address",
+        "required": false
       }
     ],
     "label": "Default Safe Attachment Policy",
@@ -1613,10 +1628,11 @@
     "helpText": "This creates a Atp policy that enables Defender for Office 365 for Sharepoint, OneDrive and Microsoft Teams.",
     "addedComponent": [
       {
-        "type": "boolean",
+        "type": "switch",
         "label": "Allow people to click through Protected View even if Safe Documents identified the file as malicious",
         "name": "standards.AtpPolicyForO365.AllowSafeDocsOpen",
-        "default": false
+        "default": false,
+        "required": false
       }
     ],
     "label": "Default Atp Policy For O365",
@@ -1632,10 +1648,11 @@
     "helpText": "This creates a Malware filter policy that enables the default File filter and Zero-hour auto purge for malware.",
     "addedComponent": [
       {
-        "type": "Select",
+        "type": "autoComplete",
+        "multiple": false,
         "label": "FileTypeAction",
         "name": "standards.MalwareFilterPolicy.FileTypeAction",
-        "values": [
+        "options": [
           {
             "label": "Reject",
             "value": "Reject"
@@ -1647,15 +1664,17 @@
         ]
       },
       {
-        "type": "input",
+        "type": "textField",
         "name": "standards.MalwareFilterPolicy.OptionalFileTypes",
+        "required": false,
         "label": "Optional File Types, Comma separated"
       },
       {
-        "type": "Select",
+        "type": "autoComplete",
+        "multiple": false,
         "label": "QuarantineTag",
         "name": "standards.MalwareFilterPolicy.QuarantineTag",
-        "values": [
+        "options": [
           {
             "label": "AdminOnlyAccessPolicy",
             "value": "AdminOnlyAccessPolicy"
@@ -1671,13 +1690,15 @@
         ]
       },
       {
-        "type": "boolean",
+        "type": "switch",
         "label": "Enable Internal Sender Admin Notifications",
+        "required": false,
         "name": "standards.MalwareFilterPolicy.EnableInternalSenderAdminNotifications"
       },
       {
-        "type": "input",
+        "type": "textField",
         "name": "standards.MalwareFilterPolicy.InternalSenderAdminAddress",
+        "required": false,
         "label": "Internal Sender Admin Address"
       },
       {
@@ -1686,8 +1707,9 @@
         "name": "standards.MalwareFilterPolicy.EnableExternalSenderAdminNotifications"
       },
       {
-        "type": "input",
+        "type": "textField",
         "name": "standards.MalwareFilterPolicy.ExternalSenderAdminAddress",
+        "required": false,
         "label": "External Sender Admin Address"
       }
     ],
@@ -1704,23 +1726,17 @@
     "helpText": "This standard creates a Spam filter policy similar to the default strict policy.",
     "addedComponent": [
       {
-        "type": "number",
-        "label": "Bulk email threshold (Default 7)",
-        "name": "standards.SpamFilterPolicy.BulkThreshold",
-        "default": 7
-      },
-      {
         "type": "Select",
         "label": "Spam Action",
         "name": "standards.SpamFilterPolicy.SpamAction",
         "values": [
           {
-            "label": "Quarantine the message",
-            "value": "Quarantine"
-          },
-          {
             "label": "Move message to Junk Email folder",
             "value": "MoveToJmf"
+          },
+          {
+            "label": "Quarantine the message",
+            "value": "Quarantine"
           }
         ]
       },
@@ -1745,21 +1761,6 @@
       },
       {
         "type": "Select",
-        "label": "High Confidence Spam Action",
-        "name": "standards.SpamFilterPolicy.HighConfidenceSpamAction",
-        "values": [
-          {
-            "label": "Quarantine the message",
-            "value": "Quarantine"
-          },
-          {
-            "label": "Move message to Junk Email folder",
-            "value": "MoveToJmf"
-          }
-        ]
-      },
-      {
-        "type": "Select",
         "label": "High Confidence Spam Quarantine Tag",
         "name": "standards.SpamFilterPolicy.HighConfidenceSpamQuarantineTag",
         "values": [
@@ -1779,21 +1780,6 @@
       },
       {
         "type": "Select",
-        "label": "Bulk Spam Action",
-        "name": "standards.SpamFilterPolicy.BulkSpamAction",
-        "values": [
-          {
-            "label": "Quarantine the message",
-            "value": "Quarantine"
-          },
-          {
-            "label": "Move message to Junk Email folder",
-            "value": "MoveToJmf"
-          }
-        ]
-      },
-      {
-        "type": "Select",
         "label": "Bulk Quarantine Tag",
         "name": "standards.SpamFilterPolicy.BulkQuarantineTag",
         "values": [
@@ -1808,21 +1794,6 @@
           {
             "label": "DefaultFullAccessWithNotificationPolicy",
             "value": "DefaultFullAccessWithNotificationPolicy"
-          }
-        ]
-      },
-      {
-        "type": "Select",
-        "label": "Phish Spam Action",
-        "name": "standards.SpamFilterPolicy.PhishSpamAction",
-        "values": [
-          {
-            "label": "Quarantine the message",
-            "value": "Quarantine"
-          },
-          {
-            "label": "Move message to Junk Email folder",
-            "value": "MoveToJmf"
           }
         ]
       },
@@ -1985,22 +1956,14 @@
     "name": "standards.DeletedUserRentention",
     "cat": "SharePoint Standards",
     "tag": ["lowimpact"],
-    "helpText": "Sets the retention period for deleted users OneDrive to the specified period of time. The default is 30 days.",
-    "docsDescription": "When a OneDrive user gets deleted, the personal SharePoint site is saved for selected amount of time that data can be retrieved from it.",
+    "helpText": "Sets the retention period for deleted users OneDrive to the specified number of years. The default is 1 year.",
+    "docsDescription": "When a OneDrive user gets deleted, the personal SharePoint site is saved for selected time in years and data can be retrieved from it.",
     "addedComponent": [
       {
         "type": "Select",
         "name": "standards.DeletedUserRentention.Days",
-        "label": "Retention time (Default 30 days)",
+        "label": "Retention in years (Default 1)",
         "values": [
-          {
-            "label": "30 days",
-            "value": "30"
-          },
-          {
-            "label": "90 days",
-            "value": "90"
-          },
           {
             "label": "1 year",
             "value": "365"
@@ -2156,62 +2119,23 @@
     "name": "standards.DisableAddShortcutsToOneDrive",
     "cat": "SharePoint Standards",
     "tag": ["mediumimpact"],
-    "helpText": "If disabled, the button Add shortcut to OneDrive will be removed and users in the tenant will no longer be able to add new shortcuts to their OneDrive. Existing shortcuts will remain functional",
-    "addedComponent": [
-      {
-        "type": "Select",
-        "label": "Add Shortcuts To OneDrive button state",
-        "name": "standards.DisableAddShortcutsToOneDrive.state",
-        "values": [
-          {
-            "label": "Disabled",
-            "value": "true"
-          },
-          {
-            "label": "Enabled",
-            "value": "false"
-          }
-        ]
-      }
-    ],
-    "label": "Set Add Shortcuts To OneDrive button state",
+    "helpText": "When the feature is disabled the option Add shortcut to OneDrive will be removed. Any folders that have already been added will remain on the user's computer.",
+    "disabledFeatures": {
+      "report": true,
+      "warn": true,
+      "remediate": false
+    },
+    "addedComponent": [],
+    "label": "Disable Add Shortcuts To OneDrive",
     "impact": "Medium Impact",
     "impactColour": "warning",
-    "powershellEquivalent": "Set-SPOTenant -DisableAddShortcutsToOneDrive $true or $false",
-    "recommendedBy": []
-  },
-  {
-    "name": "standards.SPSyncButtonState",
-    "cat": "SharePoint Standards",
-    "tag": ["mediumimpact"],
-    "helpText": "If disabled, users in the tenant will no longer be able to use the Sync button to sync SharePoint content on all sites. However, existing synced content will remain functional on the user's computer.",
-    "addedComponent": [
-      {
-        "type": "Select",
-        "label": "SharePoint Sync Button state",
-        "name": "standards.SPSyncButtonState.state",
-        "values": [
-          {
-            "label": "Disabled",
-            "value": "true"
-          },
-          {
-            "label": "Enabled",
-            "value": "false"
-          }
-        ]
-      }
-    ],
-    "label": "Set SharePoint sync button state",
-    "impact": "Medium Impact",
-    "impactColour": "warning",
-    "powershellEquivalent": "Set-SPOTenant -HideSyncButtonOnTeamSite $true or $false",
+    "powershellEquivalent": "Graph API or Portal",
     "recommendedBy": []
   },
   {
     "name": "standards.DisableSharePointLegacyAuth",
     "cat": "SharePoint Standards",
-    "tag": ["mediumimpact", "CIS", "spo_legacy_auth"],
+    "tag": ["mediumimpact", "CIS"],
     "helpText": "Disables the ability to authenticate with SharePoint using legacy authentication methods. Any applications that use legacy authentication will need to be updated to use modern authentication.",
     "docsDescription": "Disables the ability for users and applications to access SharePoint via legacy basic authentication. This will likely not have any user impact, but will block systems/applications depending on basic auth or the SharePointOnlineCredentials class.",
     "addedComponent": [],
@@ -2228,25 +2152,58 @@
     "helpText": "Sets the default sharing level for OneDrive and Sharepoint. This is a tenant wide setting and overrules any settings set on the site level",
     "addedComponent": [
       {
-        "type": "Select",
-        "label": "Select Sharing Level",
-        "name": "standards.sharingCapability.Level",
-        "values": [
+        "type": "autoComplete",
+        "multiple": false,
+        "name": "standards.DeletedUserRentention.Days",
+        "label": "Retention time (Default 30 days)",
+        "options": [
           {
-            "label": "Users can share only with people in the organization. No external sharing is allowed.",
-            "value": "disabled"
+            "label": "30 days",
+            "value": "30"
           },
           {
-            "label": "Users can share with new and existing guests. Guests must sign in or provide a verification code.",
-            "value": "externalUserSharingOnly"
+            "label": "90 days",
+            "value": "90"
           },
           {
-            "label": "Users can share with anyone by using links that do not require sign-in.",
-            "value": "externalUserAndGuestSharing"
+            "label": "1 year",
+            "value": "365"
           },
           {
-            "label": "Users can share with existing guests (those already in the directory of the organization).",
-            "value": "existingExternalUserSharingOnly"
+            "label": "2 years",
+            "value": "730"
+          },
+          {
+            "label": "3 years",
+            "value": "1095"
+          },
+          {
+            "label": "4 years",
+            "value": "1460"
+          },
+          {
+            "label": "5 years",
+            "value": "1825"
+          },
+          {
+            "label": "6 years",
+            "value": "2190"
+          },
+          {
+            "label": "7 years",
+            "value": "2555"
+          },
+          {
+            "label": "8 years",
+            "value": "2920"
+          },
+          {
+            "label": "9 years",
+            "value": "3285"
+          },
+          {
+            "label": "10 years",
+            "value": "3650"
           }
         ]
       }
@@ -2284,15 +2241,15 @@
     "recommendedBy": []
   },
   {
-    "name": "standards.ExcludedfileExt",
+    "name": "standards.TenantDefaultTimezone",
     "cat": "SharePoint Standards",
-    "tag": ["highimpact"],
-    "helpText": "Sets the file extensions that are excluded from syncing with OneDrive. These files will be blocked from upload. '*.' is automatically added to the extension and can be omitted.",
+    "tag": ["lowimpact"],
+    "helpText": "Sets the default timezone for the tenant. This will be used for all new users and sites.",
     "addedComponent": [
       {
-        "type": "input",
-        "name": "standards.ExcludedfileExt.ext",
-        "label": "Extensions, Comma separated"
+        "type": "TimezoneSelect",
+        "name": "standards.TenantDefaultTimezone.Timezone",
+        "label": "Timezone"
       }
     ],
     "label": "Exclude File Extensions from Syncing",
@@ -2302,10 +2259,10 @@
     "recommendedBy": []
   },
   {
-    "name": "standards.disableMacSync",
+    "name": "standards.SPAzureB2B",
     "cat": "SharePoint Standards",
-    "tag": ["highimpact"],
-    "helpText": "Disables the ability for Mac devices to sync with OneDrive.",
+    "tag": ["lowimpact", "CIS"],
+    "helpText": "Ensure SharePoint and OneDrive integration with Azure AD B2B is enabled",
     "addedComponent": [],
     "label": "Do not allow Mac devices to sync using OneDrive",
     "impact": "High Impact",
@@ -2314,7 +2271,7 @@
     "recommendedBy": []
   },
   {
-    "name": "standards.unmanagedSync",
+    "name": "standards.SPDisallowInfectedFiles",
     "cat": "SharePoint Standards",
     "tag": ["highimpact"],
     "helpText": "The unmanaged Sync standard has been temporarily disabled and does nothing.",
@@ -2341,7 +2298,7 @@
             "value": "none"
           },
           {
-            "label": "Restrict sharing to specific domains",
+            "label": "Restirct sharing to specific domains",
             "value": "allowList"
           },
           {
@@ -2360,180 +2317,6 @@
     "impact": "High Impact",
     "impactColour": "danger",
     "powershellEquivalent": "Update-MgAdminSharepointSetting",
-    "recommendedBy": []
-  },
-  {
-    "name": "standards.TeamsGlobalMeetingPolicy",
-    "cat": "Teams Standards",
-    "tag": ["lowimpact"],
-    "helpText": "Defines the CIS recommended global meeting policy for Teams. This includes AllowAnonymousUsersToJoinMeeting, AllowAnonymousUsersToStartMeeting, AutoAdmittedUsers, AllowPSTNUsersToBypassLobby, MeetingChatEnabledType, DesignatedPresenterRoleMode, AllowExternalParticipantGiveRequestControl",
-    "addedComponent": [
-      {
-        "type": "Select",
-        "name": "standards.TeamsGlobalMeetingPolicy.DesignatedPresenterRoleMode",
-        "label": "Default value of the `Who can present?`",
-        "values": [
-          {
-            "label": "EveryoneUserOverride",
-            "value": "EveryoneUserOverride"
-          },
-          {
-            "label": "EveryoneInCompanyUserOverride",
-            "value": "EveryoneInCompanyUserOverride"
-          },
-          {
-            "label": "EveryoneInSameAndFederatedCompanyUserOverride",
-            "value": "EveryoneInSameAndFederatedCompanyUserOverride"
-          },
-          {
-            "label": "OrganizerOnlyUserOverride",
-            "value": "OrganizerOnlyUserOverride"
-          }
-        ]
-      }
-    ],
-    "label": "Define Global Meeting Policy for Teams",
-    "impact": "Low Impact",
-    "impactColour": "info",
-    "powershellEquivalent": "Set-CsTeamsMeetingPolicy -AllowAnonymousUsersToJoinMeeting $false -AllowAnonymousUsersToStartMeeting $false -AutoAdmittedUsers EveryoneInCompanyExcludingGuests -AllowPSTNUsersToBypassLobby $false -MeetingChatEnabledType EnabledExceptAnonymous -DesignatedPresenterRoleMode $DesignatedPresenterRoleMode -AllowExternalParticipantGiveRequestControl $false",
-    "recommendedBy": ["CIS 3.0"]
-  },
-  {
-    "name": "standards.TeamsEmailIntegration",
-    "cat": "Teams Standards",
-    "tag": ["lowimpact"],
-    "helpText": "Should users be allowed to send emails directly to a channel email addresses?",
-    "docsDescription": "Teams channel email addresses are an optional feature that allows users to email the Teams channel directly.",
-    "addedComponent": [
-      {
-        "type": "boolean",
-        "name": "standards.TeamsEmailIntegration.AllowEmailIntoChannel",
-        "label": "Allow channel emails"
-      }
-    ],
-    "label": "Disallow emails to be sent to channel email addresses",
-    "impact": "Low Impact",
-    "impactColour": "info",
-    "powershellEquivalent": "Set-CsTeamsClientConfiguration -AllowEmailIntoChannel $false",
-    "recommendedBy": ["CIS 3.0"]
-  },
-  {
-    "name": "standards.TeamsExternalFileSharing",
-    "cat": "Teams Standards",
-    "tag": ["lowimpact"],
-    "helpText": "Ensure external file sharing in Teams is enabled for only approved cloud storage services.",
-    "addedComponent": [
-      {
-        "type": "boolean",
-        "name": "standards.TeamsExternalFileSharing.AllowGoogleDrive",
-        "label": "Allow Google Drive"
-      },
-      {
-        "type": "boolean",
-        "name": "standards.TeamsExternalFileSharing.AllowShareFile",
-        "label": "Allow ShareFile"
-      },
-      {
-        "type": "boolean",
-        "name": "standards.TeamsExternalFileSharing.AllowBox",
-        "label": "Allow Box"
-      },
-      {
-        "type": "boolean",
-        "name": "standards.TeamsExternalFileSharing.AllowDropBox",
-        "label": "Allow Dropbox"
-      },
-      {
-        "type": "boolean",
-        "name": "standards.TeamsExternalFileSharing.AllowEgnyte",
-        "label": "Allow Egnyte"
-      }
-    ],
-    "label": "Define approved cloud storage services for external file sharing in Teams",
-    "impact": "Low Impact",
-    "impactColour": "info",
-    "powershellEquivalent": "Set-CsTeamsClientConfiguration -AllowGoogleDrive $false -AllowShareFile $false -AllowBox $false -AllowDropBox $false -AllowEgnyte $false",
-    "recommendedBy": ["CIS 3.0"]
-  },
-  {
-    "name": "standards.TeamsExternalAccessPolicy",
-    "cat": "Teams Standards",
-    "tag": ["mediumimpact"],
-    "helpText": "Sets the properties of the Global external access policy.",
-    "docsDescription": "Sets the properties of the Global external access policy. External access policies determine whether or not your users can: 1) communicate with users who have Session Initiation Protocol (SIP) accounts with a federated organization; 2) communicate with users who are using custom applications built with Azure Communication Services; 3) access Skype for Business Server over the Internet, without having to log on to your internal network; 4) communicate with users who have SIP accounts with a public instant messaging (IM) provider such as Skype; and, 5) communicate with people who are using Teams with an account that's not managed by an organization.",
-    "addedComponent": [
-      {
-        "type": "boolean",
-        "name": "standards.TeamsExternalAccessPolicy.EnableFederationAccess",
-        "label": "Allow communication from trusted organizations"
-      },
-      {
-        "type": "boolean",
-        "name": "standards.TeamsExternalAccessPolicy.EnablePublicCloudAccess",
-        "label": "Allow user to communicate with Skype users"
-      },
-      {
-        "type": "boolean",
-        "name": "standards.TeamsExternalAccessPolicy.EnableTeamsConsumerAccess",
-        "label": "Allow communication with unmanaged Teams accounts"
-      }
-    ],
-    "label": "External Access Settings for Microsoft Teams",
-    "impact": "Medium Impact",
-    "impactColour": "warning",
-    "powershellEquivalent": "Set-CsExternalAccessPolicy",
-    "recommendedBy": []
-  },
-  {
-    "name": "standards.TeamsFederationConfiguration",
-    "cat": "Teams Standards",
-    "tag": ["mediumimpact"],
-    "helpText": "Sets the properties of the Global federation configuration.",
-    "docsDescription": "Sets the properties of the Global federation configuration. Federation configuration settings determine whether or not your users can communicate with users who have SIP accounts with a federated organization.",
-    "addedComponent": [
-      {
-        "type": "boolean",
-        "name": "standards.TeamsFederationConfiguration.AllowTeamsConsumer",
-        "label": "Allow users to communicate with other organizations"
-      },
-      {
-        "type": "boolean",
-        "name": "standards.TeamsFederationConfiguration.AllowPublicUsers",
-        "label": "Allow users to communicate with Skype Users"
-      },
-      {
-        "type": "Select",
-        "name": "standards.TeamsFederationConfiguration.DomainControl",
-        "label": "Communication Mode",
-        "values": [
-          {
-            "label": "Allow all external domains",
-            "value": "AllowAllExternal"
-          },
-          {
-            "label": "Block all external domains",
-            "value": "BlockAllExternal"
-          },
-          {
-            "label": "Allow specific external domains",
-            "value": "AllowSpecificExternal"
-          },
-          {
-            "label": "Block specific external domains",
-            "value": "BlockSpecificExternal"
-          }
-        ]
-      },
-      {
-        "type": "input",
-        "name": "standards.TeamsFederationConfiguration.DomainList",
-        "label": "Domains, Comma separated"
-      }
-    ],
-    "label": "Federation Configuration for Microsoft Teams",
-    "impact": "Medium Impact",
-    "impactColour": "warning",
-    "powershellEquivalent": "Set-CsTenantFederationConfiguration",
     "recommendedBy": []
   }
 ]

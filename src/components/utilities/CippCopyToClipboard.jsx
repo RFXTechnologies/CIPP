@@ -14,7 +14,7 @@ function CippCopyToClipboard({ text }) {
     <CopyToClipboard text={text} onCopy={() => onCodeCopied()}>
       <CButton
         color={codeCopied ? 'success' : 'info'}
-        className="cipp-code-copy-button ms-1"
+        className="cipp-code-copy-button"
         size="sm"
         variant="ghost"
       >

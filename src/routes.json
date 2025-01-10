@@ -12,12 +12,6 @@
     "allowedRoles": ["admin", "editor", "readonly"]
   },
   {
-    "path": "/cipp/template-library",
-    "name": "Logs",
-    "component": "views/cipp/TemplateLibrary",
-    "allowedRoles": ["admin", "editor", "readonly"]
-  },
-  {
     "path": "/cipp/scheduler",
     "name": "Scheduler",
     "component": "views/cipp/Scheduler",
@@ -80,12 +74,6 @@
     "path": "/identity/administration/users/InviteGuest",
     "name": "Invite Guest",
     "component": "views/identity/administration/InviteGuest",
-    "allowedRoles": ["admin", "editor", "readonly"]
-  },
-  {
-    "path": "/identity/administration/jit-admin",
-    "name": "JIT Admin",
-    "component": "views/identity/administration/DeployJITAdmin",
     "allowedRoles": ["admin", "editor", "readonly"]
   },
   {
@@ -285,15 +273,9 @@
     "allowedRoles": ["admin", "editor", "readonly"]
   },
   {
-    "path": "/tenant/administration/alert-configuration",
-    "name": "Alert Configuration",
+    "path": "/tenant/administration/alertsqueue",
+    "name": "Alerts Queue",
     "component": "views/tenant/administration/ListAlertsQueue",
-    "allowedRoles": ["admin", "editor", "readonly"]
-  },
-  {
-    "path": "/tenant/administration/audit-logs",
-    "name": "Audit Logs",
-    "component": "views/tenant/administration/ListAuditLogs",
     "allowedRoles": ["admin", "editor", "readonly"]
   },
   {
@@ -789,12 +771,6 @@
     "allowedRoles": ["admin", "editor", "readonly"]
   },
   {
-    "path": "/email/tools/message-viewer",
-    "name": "Message Viewer",
-    "component": "views/email-exchange/tools/MessageViewer",
-    "allowedRoles": ["admin", "editor", "readonly"]
-  },
-  {
     "path": "/email/spamfilter/add-template",
     "name": "Add Spamfilter Template",
     "component": "views/email-exchange/spamfilter/AddSpamfilterTemplate",
@@ -867,12 +843,6 @@
     "allowedRoles": ["admin", "editor", "readonly"]
   },
   {
-    "name": "Add Tenant Allow/Block List",
-    "path": "/email/administration/add-tenant-allow-block-list",
-    "component": "views/email-exchange/administration/AddTenantAllowBlockList",
-    "allowedRoles": ["admin", "editor", "readonly"]
-  },
-  {
     "name": "Email Reports",
     "path": "/email/reports",
     "allowedRoles": ["admin", "editor", "readonly"]
@@ -908,27 +878,9 @@
     "allowedRoles": ["admin", "editor", "readonly"]
   },
   {
-    "path": "/email/reports/antiphishing-filters",
-    "name": "Anti Phishing Filters",
-    "component": "views/email-exchange/reports/AntiPhishingFilters",
-    "allowedRoles": ["admin", "editor", "readonly"]
-  },
-  {
-    "path": "/email/reports/malware-filters",
-    "name": "Malware Filters",
-    "component": "views/email-exchange/reports/MalwareFilters",
-    "allowedRoles": ["admin", "editor", "readonly"]
-  },
-  {
-    "path": "/email/reports/safelinks-filters",
-    "name": "Safe Links Filters",
-    "component": "views/email-exchange/reports/SafeLinksFilters",
-    "allowedRoles": ["admin", "editor", "readonly"]
-  },
-  {
-    "path": "/email/reports/safeattachments-filters",
-    "name": "Safe Attachment Filters",
-    "component": "views/email-exchange/reports/SafeAttachmentsFilters",
+    "name": "Phishing Policies",
+    "path": "/email/reports/phishing-policies",
+    "component": "views/email-exchange/reports/PhishingPoliciesList",
     "allowedRoles": ["admin", "editor", "readonly"]
   },
   {
@@ -1017,15 +969,9 @@
     "allowedRoles": ["admin"]
   },
   {
-    "path": "/tenant/administration/gdap-invite-wizard",
+    "path": "/tenant/administration/gdap-invite",
     "name": "GDAP Invite Wizard",
     "component": "views/tenant/administration/GDAPInviteWizard",
-    "allowedRoles": ["admin"]
-  },
-  {
-    "path": "/tenant/administration/gdap-invites",
-    "name": "GDAP Invites",
-    "component": "views/tenant/administration/ListGDAPInvites",
     "allowedRoles": ["admin"]
   },
   {
@@ -1068,12 +1014,6 @@
     "path": "/tenant/administration/tenant-offboarding-wizard",
     "name": "Tenant Offboarding",
     "component": "views/tenant/administration/TenantOffboardingWizard",
-    "allowedRoles": ["admin"]
-  },
-  {
-    "path": "/tenant/administration/tenant-onboarding",
-    "name": "Tenant Onboarding",
-    "component": "views/tenant/administration/TenantOnboarding",
     "allowedRoles": ["admin"]
   },
   {

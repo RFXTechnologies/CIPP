@@ -71,7 +71,7 @@ const Actions = (row, rowIndex, formatExtraData) => {
             color: 'danger',
             modal: true,
             icon: <FontAwesomeIcon icon={faTrashAlt} className="me-2" />,
-            modalUrl: `/api/RemovePolicy?TenantFilter=${tenant.defaultDomainName}&ID=${row.id}&URLName=deviceCompliancePolicies`,
+            modalUrl: `/api/RemovePolicy?TenantFilter=${tenant.defaultDomainName}&ID=${row.id}&URLName=${row.URLName}`,
             modalMessage: 'Are you sure you want to delete this policy?',
           },
         ]}

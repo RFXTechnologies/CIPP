@@ -6,7 +6,7 @@ import {
 } from 'src/store/api/app.js'
 import React, { useRef } from 'react'
 import useConfirmModal from 'src/hooks/useConfirmModal.jsx'
-import { CButton, CCard, CCardBody, CCardHeader, CCol, CFormCheck, CRow } from '@coreui/react'
+import { CButton, CCard, CCardBody, CCardHeader, CCol, CRow } from '@coreui/react'
 import { StatusIcon } from 'src/components/utilities/index.js'
 import { CippCallout } from 'src/components/layout/index.js'
 import Skeleton from 'react-loading-skeleton'
@@ -15,7 +15,6 @@ import { faCircleNotch } from '@fortawesome/free-solid-svg-icons'
 import { SettingsPassword } from 'src/views/cipp/app-settings/components/SettingsPassword.jsx'
 import { SettingsDNSResolver } from 'src/views/cipp/app-settings/components/SettingsDNSResolver.jsx'
 import CippButtonCard from 'src/components/contentcards/CippButtonCard'
-import { RFFCFormCheck } from 'src/components/forms'
 
 /**
  * Fetches and maintains DNS configuration settings for the application.
@@ -23,7 +22,6 @@ import { RFFCFormCheck } from 'src/components/forms'
  * @return {JSX.Element | void} The settings DNS component or nothing if data not ready.
  */
 export function SettingsGeneralRow() {
-  const [setBackupSchedule, BackupScheduleResult] = useLazyGenericGetRequestQuery()
   const [runBackup, RunBackupResult] = useLazyGenericGetRequestQuery()
   const [restoreBackup, restoreBackupResult] = useLazyGenericPostRequestQuery()
 
@@ -50,9 +48,6 @@ export function SettingsGeneralRow() {
     fileReader.onload = (e) => {
       restoreBackup({ path: '/api/ExecRestoreBackup', values: e.target.result })
     }
-  }
-  const handleBackupSchedule = () => {
-    setBackupSchedule({ path: `/api/ExecSetCIPPAutoBackup?Enabled=true` })
   }
 
   const handleClearCache = useConfirmModal({
@@ -120,17 +115,6 @@ export function SettingsGeneralRow() {
         )}
         Restore backup
       </CButton>
-      <CButton
-        className="me-2"
-        name="file"
-        onClick={() => handleBackupSchedule()}
-        disabled={BackupScheduleResult.isFetching}
-      >
-        {BackupScheduleResult.isFetching && (
-          <FontAwesomeIcon icon={faCircleNotch} spin className="me-2" size="1x" />
-        )}
-        Create Automated Backup Task
-      </CButton>
     </>
   )
   return (
@@ -195,22 +179,14 @@ export function SettingsGeneralRow() {
               id="contained-button-file"
               onChange={(e) => handleChange(e)}
             />
-            <CRow className="mb-3">
-              <small>
-                Use this button to backup the system configuration for CIPP. This will not include
-                authentication information or extension configuration. You can also set an automated
-                daily backup schedule by clicking the button below. This will create a scheduled
-                task for you.
-              </small>
-            </CRow>
+            <small>
+              Use this button to backup the system configuration for CIPP. This will not include
+              authentication information or extension configuration.
+            </small>
+
             {restoreBackupResult.isSuccess && !restoreBackupResult.isFetching && (
               <CippCallout color="success" dismissible>
                 {restoreBackupResult.data.Results}
-              </CippCallout>
-            )}
-            {BackupScheduleResult.isSuccess && !BackupScheduleResult.isFetching && (
-              <CippCallout color="success" dismissible>
-                {BackupScheduleResult.data.Results}
               </CippCallout>
             )}
             {RunBackupResult.isSuccess && !restoreBackupResult.isFetching && (

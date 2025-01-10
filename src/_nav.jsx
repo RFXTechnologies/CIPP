@@ -83,11 +83,6 @@ const _nav = [
       },
       {
         component: CNavItem,
-        name: 'JIT Admin',
-        to: '/identity/administration/jit-admin',
-      },
-      {
-        component: CNavItem,
         name: 'Offboarding Wizard',
         to: '/identity/administration/offboarding-wizard',
       },
@@ -145,13 +140,13 @@ const _nav = [
       },
       {
         component: CNavItem,
-        name: 'Alert Configuration',
-        to: '/tenant/administration/alert-configuration',
+        name: 'Alerts (Classic)',
+        to: '/tenant/administration/alertsqueue',
       },
       {
         component: CNavItem,
-        name: 'Audit Logs',
-        to: '/tenant/administration/audit-logs',
+        name: 'Alert Rules',
+        to: '/tenant/administration/AlertRules',
       },
       {
         component: CNavItem,
@@ -176,7 +171,7 @@ const _nav = [
       {
         component: CNavItem,
         name: 'Tenant Onboarding',
-        to: '/tenant/administration/tenant-onboarding',
+        to: '/tenant/administration/tenant-onboarding-wizard',
       },
       {
         component: CNavItem,
@@ -331,12 +326,7 @@ const _nav = [
       {
         component: CNavItem,
         name: 'Invite Wizard',
-        to: '/tenant/administration/gdap-invite-wizard',
-      },
-      {
-        component: CNavItem,
-        name: 'Invite List',
-        to: '/tenant/administration/gdap-invites',
+        to: '/tenant/administration/gdap-invite',
       },
       {
         component: CNavItem,
@@ -692,11 +682,6 @@ const _nav = [
         name: 'Mail Test',
         to: '/email/tools/mail-test',
       },
-      {
-        component: CNavItem,
-        name: 'Message Viewer',
-        to: '/email/tools/message-viewer',
-      },
     ],
   },
   {
@@ -805,23 +790,8 @@ const _nav = [
       },
       {
         component: CNavItem,
-        name: 'Anti-Phishing Filters',
-        to: '/email/reports/antiphishing-filters',
-      },
-      {
-        component: CNavItem,
-        name: 'Malware Filters',
-        to: '/email/reports/malware-filters',
-      },
-      {
-        component: CNavItem,
-        name: 'Safe Links Filters',
-        to: '/email/reports/safelinks-filters',
-      },
-      {
-        component: CNavItem,
-        name: 'Safe Attachments Filters',
-        to: '/email/reports/safeattachments-filters',
+        name: 'Phishing Policies',
+        to: '/email/reports/phishing-policies',
       },
       {
         component: CNavItem,

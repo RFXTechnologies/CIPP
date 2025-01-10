@@ -251,7 +251,9 @@ export default function ExtensionMappings({ type, fieldMappings = false, autoMap
                             if (
                               mappingValue.value !== undefined &&
                               mappingValue.value !== '-1' &&
-                              Object.values(mappingArray).map((item) => item.companyId)
+                              Object.values(mappingArray)
+                                .map((item) => item.companyId)
+                                .includes(mappingValue.value) === false
                             ) {
                               setMappingArray([
                                 ...mappingArray,
